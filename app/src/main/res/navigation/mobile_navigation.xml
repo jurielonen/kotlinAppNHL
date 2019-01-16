@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/mobile_navigation" app:startDestination="@id/schedule_dest">
+
+    <fragment android:id="@+id/schedule_dest"
+              android:name="com.jurielonen.nhlapp30.Schedule.ScheduleFragment"
+              android:label="@string/schedule_name"
+              tools:layout="@layout/schedule_fragment"
+    />
+
+    <fragment android:id="@+id/player_dest"
+              android:name="com.jurielonen.nhlapp30.Player.PlayerFragment"
+              android:label="@string/player_name"
+              tools:layout="@layout/player_fragment"
+    />
+
+    <fragment android:id="@+id/standings_dest"
+              android:name="com.jurielonen.nhlapp30.Standings.StandingsFragment"
+              android:label="@string/standings_name"
+              tools:layout="@layout/standings_fragment"
+    />
+
+    <fragment android:id="@+id/team_dest"
+              android:name="com.jurielonen.nhlapp30.Team.TeamFragment"
+              android:label="@string/team_name"
+              tools:layout="@layout/team_fragment"
+    />
+</navigation>
