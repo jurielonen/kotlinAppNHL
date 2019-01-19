@@ -1,23 +1,20 @@
-package com.jurielonen.nhlapp30
+package com.jurielonen.nhlapp30.player
 
-import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.MenuItem
-import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
-import androidx.navigation.ui.*
-import com.jurielonen.nhlapp30.databinding.ActivityMainBinding
-import kotlinx.android.synthetic.main.activity_main.*
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
+import com.jurielonen.nhlapp30.R
+import com.jurielonen.nhlapp30.databinding.ActivityPlayerBinding
 
-class MainActivity : AppCompatActivity() {
-
+class PlayerActivity : AppCompatActivity() {
 
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -26,11 +23,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding: ActivityMainBinding
-                = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        val binding: ActivityPlayerBinding
+                = DataBindingUtil.setContentView(this, R.layout.activity_player)
 
         drawerLayout = binding.drawerLayout
-        navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+        navController = Navigation.findNavController(this, R.id.nav_player_fragment)
         appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
 
         setSupportActionBar(binding.toolbar)
@@ -51,5 +49,4 @@ class MainActivity : AppCompatActivity() {
             super.onBackPressed()
         }
     }
-
 }

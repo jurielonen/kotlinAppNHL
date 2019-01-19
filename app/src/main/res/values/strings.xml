@@ -4,4 +4,21 @@
     <string name="schedule_name">Schedule</string>
     <string name="player_name">Player</string>
     <string name="team_name">Team</string>
+
+    <string name="schedule_vs">vs</string>
+    <string name="schedule_team_name">columbus blue jackets</string>
+    <string name="schedule_time">time</string>
+    <string name="schedule_venue">venue</string>
+    <string name="schedule_state">state</string>
+    <string name="schedule_info">info</string>
+    <string name="next_date">next</string>
+    <string name="previous_date">previous</string>
+    <string name="home_image">home logo</string>
+    <string name="away_image">away logo</string>
+    <string name="calendar_button_default">1.1.2019</string>
+
+    <string name="loading">Loading</string>
+    <string name="no_results">No results 😓</string>
+    <string name="edit_text_hint">yyyy-mm-dd</string>
+
 </resources>

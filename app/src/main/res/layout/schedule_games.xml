@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="gameData" type="com.jurielonen.nhlapp30.schedule.model.Games"/>
+        <variable name="statsListener" type="android.view.View.OnClickListener"/>
+        <variable name="recapListener" type="android.view.View.OnClickListener"/>
+        <variable name="extendedListener" type="android.view.View.OnClickListener"/>
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black">
+
+        <ImageView
+                android:id="@+id/scheduleHomeLogoImage"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_alignStart="@+id/scheduleVenueText"
+                android:layout_marginBottom="32dp"
+                android:layout_marginTop="8dp"
+                android:alpha="0.2"
+                app:layout_constraintBottom_toBottomOf="@+id/scheduleTimeText"
+                app:layout_constraintEnd_toStartOf="@+id/scheduleAwayLogoImage"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:setImage="@{gameData.teams.home.details.name}"
+                android:layout_alignLeft="@+id/scheduleVenueText"
+                android:contentDescription="@string/home_image"/>
+
+        <ImageView
+                android:id="@+id/scheduleAwayLogoImage"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_alignBottom="@+id/scheduleHomeLogoImage"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="32dp"
+                android:layout_marginTop="8dp"
+                android:alpha="0.2"
+                app:layout_constraintBottom_toBottomOf="@+id/scheduleTimeText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/scheduleHomeLogoImage"
+                app:layout_constraintTop_toTopOf="parent"
+                app:setImage="@{gameData.teams.away.details.name}"
+                android:layout_alignParentRight="true"
+                android:contentDescription="@string/away_image"/>
+
+        <TextView
+                android:id="@+id/scheduleStateText"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_above="@+id/scheduleTimeText"
+                android:layout_alignEnd="@+id/scheduleTimeText"
+                android:layout_alignStart="@+id/scheduleTimeText"
+                android:gravity="center"
+                android:text="@{gameData.getState()}"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/game_text_size"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scheduleInfoLayout"
+                android:layout_alignRight="@+id/scheduleTimeText" android:layout_alignLeft="@+id/scheduleTimeText"/>
+
+        <TextView
+                android:id="@+id/scheduleVenueText"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_above="@+id/scheduleTimeText"
+                android:layout_alignEnd="@+id/scheduleTimeText"
+                android:layout_alignStart="@+id/scheduleTimeText"
+                android:gravity="center"
+                android:text="@{gameData.venue.name}"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/game_text_size"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scheduleStateText"
+                android:layout_alignRight="@+id/scheduleTimeText" android:layout_alignLeft="@+id/scheduleTimeText"/>
+
+        <TextView
+                android:id="@+id/scheduleTimeText"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
+                android:gravity="center"
+                android:text="@{gameData.gameDate}"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/game_text_size"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scheduleVenueText" android:layout_alignParentRight="true"
+                android:layout_alignParentLeft="true"/>
+
+        <Button
+                android:id="@+id/statsButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/video_button"
+                android:text="STATS"
+                android:textColor="@color/white"
+                android:onClick="@{statsListener}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/recapButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scheduleTimeText" android:layout_marginLeft="8dp"/>
+
+        <Button
+                android:id="@+id/recapButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/video_button"
+                android:text="RECAP"
+                android:onClick="@{recapListener}"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/extendedButton"
+                app:layout_constraintStart_toEndOf="@+id/statsButton"
+                app:layout_constraintTop_toBottomOf="@+id/scheduleTimeText"/>
+
+        <Button
+                android:id="@+id/extendedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/video_button"
+                android:text="EXTENDED"
+                android:onClick="@{extendedListener}"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/recapButton"
+                android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/scheduleTimeText"
+                android:layout_marginRight="8dp"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/scheduleInfoLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                    android:id="@+id/scheduleAwayNameText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/scheduleVsText"
+                    android:gravity="center"
+                    android:text="@{gameData.teams.away.details.name}"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/game_text_size"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/scheduleHomeNameText"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@+id/scheduleVsText"/>
+
+            <TextView
+                    android:id="@+id/scheduleHomeNameText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_toStartOf="@+id/scheduleVsText"
+                    android:gravity="center"
+                    android:text="@{gameData.teams.home.details.name}"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/game_text_size"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/scheduleAwayNameText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" android:layout_alignParentLeft="true"
+                    android:layout_toLeftOf="@+id/scheduleVsText"/>
+
+            <TextView
+                    android:id="@+id/scheduleVsText"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:gravity="center"
+                    android:text="@string/schedule_vs"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/game_text_size"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/scheduleAwayNameText"/>
+
+            <TextView
+                    android:id="@+id/homeInfoText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="32dp"
+                    android:gravity="center"
+                    android:text="@{gameData.homeStat()}"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/game_score_size"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/scheduleVsText"
+                    app:layout_constraintTop_toBottomOf="@+id/scheduleHomeNameText" android:layout_marginRight="32dp"/>
+
+            <TextView
+                    android:id="@+id/awayInfoText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="32dp"
+                    android:gravity="center"
+                    android:text="@{gameData.awayStat()}"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/game_score_size"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/scheduleVsText"
+                    app:layout_constraintTop_toBottomOf="@+id/scheduleAwayNameText" android:layout_marginLeft="32dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

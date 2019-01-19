@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="game_score_size">40sp</dimen>
+    <dimen name="game_text_size">10sp</dimen>
+    <dimen name="repo_name_size">24sp</dimen>
+
+</resources>

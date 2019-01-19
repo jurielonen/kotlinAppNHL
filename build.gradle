@@ -39,4 +39,12 @@ ext {
     testRunnerVersion = "1.1.1"
     espressoVersion = "3.1.1"
     coreVersion = "1.1.0-alpha03"
+    coroutinesVersion = "1.0.1"
+
+    archComponentsVersion = "2.0.0"
+    roomVersion = "2.1.0-alpha03"
+    pagingVersion = "2.1.0-rc01"
+    retrofitVersion = "2.3.0"
+    okhttpLoggingInterceptorVersion = "3.9.0"
+
 }

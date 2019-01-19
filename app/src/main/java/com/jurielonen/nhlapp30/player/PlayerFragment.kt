@@ -1,19 +1,16 @@
-package com.jurielonen.nhlapp30.Player
+package com.jurielonen.nhlapp30.player
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.jurielonen.nhlapp30.R
+import com.jurielonen.nhlapp30.databinding.PlayerFragmentBinding
 
 class PlayerFragment: Fragment() {
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.player_fragment, container, false)
-    }
+        val binding = PlayerFragmentBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        return binding.root
     }
 }
