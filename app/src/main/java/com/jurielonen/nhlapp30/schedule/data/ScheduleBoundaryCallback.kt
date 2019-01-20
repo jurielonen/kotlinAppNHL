@@ -26,6 +26,7 @@ class ScheduleBoundaryCallback (
         get() = _networkErrors
 
 
+
     override fun onZeroItemsLoaded() {
         Log.d("ScheduleCallback", "onZeroItemsLoaded")
         requestAndSaveData(query)

@@ -16,8 +16,13 @@ class ScheduleLocalCache(private val scheduleDao: ScheduleDao, private val ioExe
     }
 
     fun reposByDate(date: String): DataSource.Factory<Int, Games> {
-        // appending '%' so we can allow other characters to be before and after the query string
-        //val query = "%${date.replace(' ', '%')}%"
         return scheduleDao.reposByDate(date)
+    }
+
+    fun deleteByDate(date: String){
+        ioExecutor.execute {
+            Log.d("ScheduleLocalCache", "deleting $date repos")
+            scheduleDao.deleteBySubreddit(date)
+        }
     }
 }

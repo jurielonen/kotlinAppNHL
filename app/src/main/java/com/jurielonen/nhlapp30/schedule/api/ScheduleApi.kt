@@ -17,7 +17,6 @@ fun searchSchedule(api: ScheduleApi,
                    onSuccess: (schedule: List<Games>)->Unit,
                    onError: (error: String)-> Unit){
 
-
     api.searchRepos(path, "game(content(media(epg),highlights(scoreboard)))").enqueue(
         object : Callback<ScheduleResponse>{
             override fun onFailure(call: Call<ScheduleResponse>, t: Throwable) {

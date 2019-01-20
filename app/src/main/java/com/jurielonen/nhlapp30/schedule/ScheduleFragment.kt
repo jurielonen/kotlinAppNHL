@@ -61,10 +61,18 @@ class ScheduleFragment: Fragment() {
             Log.d("Activity", "list: ${it?.size}")
             showEmptyList(it?.size == 0)
             adapter.submitList(it)
+            if(scheduleSwipeRefresh.isRefreshing)
+                scheduleSwipeRefresh.isRefreshing = false
         })
         viewModel.networkErrors.observe(this, Observer<String> {
             Toast.makeText(context, "\uD83D\uDE28 Wooops ${it}", Toast.LENGTH_LONG).show()
+            if(scheduleSwipeRefresh.isRefreshing)
+                scheduleSwipeRefresh.isRefreshing = false
         })
+
+        scheduleSwipeRefresh.setOnRefreshListener {
+            viewModel.refresh()
+        }
     }
 
     private fun initSearch() {

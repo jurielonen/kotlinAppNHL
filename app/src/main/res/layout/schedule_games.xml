@@ -2,9 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="gameData" type="com.jurielonen.nhlapp30.schedule.model.Games"/>
-        <variable name="statsListener" type="android.view.View.OnClickListener"/>
-        <variable name="recapListener" type="android.view.View.OnClickListener"/>
-        <variable name="extendedListener" type="android.view.View.OnClickListener"/>
+        <variable name="navigation" type="com.jurielonen.nhlapp30.schedule.NavigationSingleton"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -114,7 +112,7 @@
                 android:background="@drawable/video_button"
                 android:text="STATS"
                 android:textColor="@color/white"
-                android:onClick="@{statsListener}"
+                android:onClick="@{() -> navigation.statsClicked(gameData)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/recapButton"
                 app:layout_constraintStart_toStartOf="parent"
@@ -128,7 +126,7 @@
                 android:layout_marginTop="8dp"
                 android:background="@drawable/video_button"
                 android:text="RECAP"
-                android:onClick="@{recapListener}"
+                android:onClick="@{() -> navigation.statsClicked(gameData)}"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/extendedButton"
@@ -143,7 +141,7 @@
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/video_button"
                 android:text="EXTENDED"
-                android:onClick="@{extendedListener}"
+                android:onClick="@{() -> navigation.statsClicked(gameData)}"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

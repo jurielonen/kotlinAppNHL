@@ -21,4 +21,125 @@
     <string name="no_results">No results 😓</string>
     <string name="edit_text_hint">yyyy-mm-dd</string>
 
+
+    <string name="game_home">home</string>
+    <string name="game_away">away</string>
+    <string name="game_comparison">team comparison</string>
+    <string name="game_final">final</string>
+    <string name="game_preview">preview</string>
+    <string name="game_live">live</string>
+    <string name="game_plays_text">desc</string>
+    <string name="game_plays_period_text">0</string>
+    <string name="game_plays_time_text">00:00</string>
+    <string name="game_skater_stats_text">0</string>
+    <string name="game_skater_name_text">Auston Matthews</string>
+    <string name="game_stats_text">200</string>
+    <string name="game_stats_name_text">Games Played</string>
+    <string name="game_preview_header">Header</string>
+    <string name="game_preview_column_rank">1</string>
+    <string name="game_preview_column_name">Auston Matthews</string>
+    <string name="game_preview_column_value">100</string>
+
+
+    <string-array name="game_final_fragment">
+        <item>stats</item>
+        <item>plays</item>
+        <item>players</item>
+    </string-array>
+
+    <string-array name="game_preview_fragment">
+        <item>stats</item>
+        <item>Leaders</item>
+    </string-array>
+
+    <string-array name="game_final_data_names">
+        <item>goals</item>
+        <item>pim</item>
+        <item>shots</item>
+        <item>powerPlayPercentage</item>
+        <item>powerPlayGoals</item>
+        <item>powerPlayOpportunities</item>
+        <item>faceOffWinPercentage</item>
+        <item>blocked</item>
+        <item>takeaways</item>
+        <item>giveaways</item>
+        <item>hits</item>
+    </string-array>
+
+    <string-array name="game_final_stat_names">
+        <item>Goals</item>
+        <item>Penalty Min</item>
+        <item>Shots</item>
+        <item>Power Play Percentage</item>
+        <item>Power Play Goals</item>
+        <item>Power Play Oportunities</item>
+        <item>Face Off Win Percentage</item>
+        <item>Blocked Shots</item>
+        <item>Takeaways</item>
+        <item>Giveaways</item>
+        <item>Hits</item>
+    </string-array>
+
+    <string-array name="game_preview_data_names">
+        <item>gamesPlayed</item>
+        <item>wins</item>
+        <item>losses</item>
+        <item>ot</item>
+        <item>pts</item>
+        <item>ptPctg</item>
+        <item>goalsPerGame</item>
+        <item>goalsAgainstPerGame</item>
+        <item>evGGARatio</item>
+        <item>powerPlayPercentage</item>
+        <item>powerPlayGoals</item>
+        <item>powerPlayGoalsAgainst</item>
+        <item>powerPlayOpportunities</item>
+        <item>penaltyKillPercentage</item>
+        <item>shotsPerGame</item>
+        <item>shotsAllowed</item>
+        <item>winScoreFirst</item>
+        <item>winOppScoreFirst</item>
+        <item>winLeadFirstPer</item>
+        <item>winLeadSecondPer</item>
+        <item>winOutshootOpp</item>
+        <item>winOutshotByOpp</item>
+        <item>faceOffsTaken</item>
+        <item>faceOffsWon</item>
+        <item>faceOffsLost</item>
+        <item>faceOffWinPercentage</item>
+        <item>shootingPctg</item>
+        <item>savePctg</item>
+    </string-array>
+
+    <string-array name="game_preview_stat_names">
+        <item>Games Played</item>
+        <item>Wins</item>
+        <item>Losses</item>
+        <item>Overtime</item>
+        <item>Points</item>
+        <item>Point Percentage</item>
+        <item>Goals Per Game</item>
+        <item>Goals Against Per Game</item>
+        <item>Even Goals Against Ratio</item>
+        <item>Power Play Percentage</item>
+        <item>Power Play Goals</item>
+        <item>Power Play Goals Against</item>
+        <item>Power Play Opportunities</item>
+        <item>Penalty Kill Percentage</item>
+        <item>Shots Per Game</item>
+        <item>Shots Allowed</item>
+        <item>Win When Score First</item>
+        <item>Win When Opponent Scores First</item>
+        <item>Win When Lead First Period</item>
+        <item>Win When Lead Second Period</item>
+        <item>Win When Outshoot Opponent</item>
+        <item>Win When Outshot By Opponent</item>
+        <item>Face Offs Taken</item>
+        <item>Face Offs Won</item>
+        <item>Face Offs Lost</item>
+        <item>Face Off Win Percentage</item>
+        <item>Shooting Percentage</item>
+        <item>Save Percentage</item>
+    </string-array>
+
 </resources>

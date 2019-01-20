@@ -4,7 +4,6 @@ import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
-import com.jurielonen.nhlapp30.Helper
 
 @Entity(tableName = "games")
 data class Games(
@@ -42,6 +41,9 @@ data class Games(
         }
     }
 
+    fun homeRecord(): String{
+        return "${teams.home.leagueRecord.wins}-${teams.home.leagueRecord.losses}-${teams.home.leagueRecord.ot}"
+    }
     fun awayStat(): String{
         return when(status.codedGameState){
             1->"${teams.away.leagueRecord.wins}-${teams.away.leagueRecord.losses}-${teams.away.leagueRecord.ot}"
@@ -49,6 +51,10 @@ data class Games(
             7->"${teams.away.score}"
             else->"${teams.away.score}"
         }
+    }
+
+    fun awayRecord(): String{
+        return "${teams.away.leagueRecord.wins}-${teams.away.leagueRecord.losses}-${teams.away.leagueRecord.ot}"
     }
 }
 

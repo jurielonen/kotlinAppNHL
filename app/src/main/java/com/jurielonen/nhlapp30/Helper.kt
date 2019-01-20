@@ -1,6 +1,8 @@
 package com.jurielonen.nhlapp30
 
+import android.view.View
 import android.widget.ImageView
+import com.jurielonen.nhlapp30.schedule.model.Games
 
 object Helper {
 

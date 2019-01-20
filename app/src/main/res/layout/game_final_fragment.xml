@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <androidx.viewpager.widget.ViewPager
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:id="@+id/finalViewPager"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
+            <androidx.viewpager.widget.PagerTabStrip
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:id="@+id/finalPagerTabStrip"
+                    android:layout_gravity="top"
+                    android:background="@color/colorPrimary"
+                    android:paddingBottom="4dp"
+                    android:paddingTop="4dp"
+                    android:textColor="#fff">
+
+            </androidx.viewpager.widget.PagerTabStrip>
+        </androidx.viewpager.widget.ViewPager>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" android:id="@+id/constraintLayout2">
+
+            <TextView
+                    android:id="@+id/finalStatusText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="@string/game_final"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/gameText"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/finalRecapButton"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/finalHomeText"
+                    app:layout_constraintVertical_chainStyle="spread"/>
+
+            <ImageView
+                    android:id="@+id/finalAwayImage"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:alpha="0.2"
+                    android:src="@drawable/logo_bos"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/finalHomeImage"
+                    app:layout_constraintTop_toTopOf="@+id/finalAwayText"
+                    android:contentDescription="@string/away_image"/>
+
+            <ImageView
+                    android:id="@+id/finalHomeImage"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:alpha="0.2"
+                    android:src="@drawable/logo_ana"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/finalAwayImage"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/finalHomeText"
+                    app:layout_constraintVertical_bias="0.0"
+                    android:contentDescription="@string/home_image"/>
+
+            <TextView
+                    android:id="@+id/finalAwayText"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/game_away"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/gameText"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/finalHomeText"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                    android:id="@+id/finalAwayGoalsText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:text="@string/game_away"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/gameText"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/finalExtendedButton"
+                    app:layout_constraintStart_toEndOf="@+id/finalStatusText"
+                    app:layout_constraintTop_toBottomOf="@+id/finalAwayText" />
+
+            <TextView
+                    android:id="@+id/finalHomeText"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/game_home"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/gameText"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/finalAwayText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                    android:id="@+id/finalHomeGoalsText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginRight="32dp"
+                    android:text="@string/game_home"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/gameText"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/finalRecapButton"
+                    app:layout_constraintEnd_toStartOf="@+id/finalStatusText"
+                    app:layout_constraintTop_toBottomOf="@+id/finalHomeText" />
+
+            <Button
+                    android:id="@+id/finalRecapButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/video_button"
+                    android:text="recap"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@+id/finalHomeImage"
+                    app:layout_constraintEnd_toEndOf="@+id/finalHomeImage"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+            <Button
+                    android:id="@+id/finalExtendedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/video_button"
+                    android:text="extended"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@+id/finalAwayImage"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/finalHomeImage"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

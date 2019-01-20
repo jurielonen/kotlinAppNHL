@@ -62,7 +62,12 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:id="@+id/constraintLayout">
 
-            <androidx.recyclerview.widget.RecyclerView
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                    android:id="@+id/scheduleSwipeRefresh"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -72,6 +77,8 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/schedule_games"
                     app:layout_constraintTop_toTopOf="parent"/>
+
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
             <TextView android:id="@+id/emptyList"
                       android:layout_width="0dp"
@@ -83,6 +90,7 @@
                       app:layout_constraintEnd_toEndOf="parent"
                       app:layout_constraintStart_toStartOf="parent"
                       app:layout_constraintBottom_toBottomOf="parent"/>
+
 
             <CalendarView
                     android:layout_width="0dp"

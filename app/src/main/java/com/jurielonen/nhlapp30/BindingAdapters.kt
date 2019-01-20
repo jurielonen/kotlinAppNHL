@@ -10,4 +10,6 @@ object BindingAdapters {
     fun setImage(view: ImageView, team: String) {
         Helper.chooseImage(team, view)
     }
+
+
 }

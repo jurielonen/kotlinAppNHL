@@ -1,20 +1,15 @@
 package com.jurielonen.nhlapp30
 
-import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.MenuItem
-import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.navigation.ui.*
 import com.jurielonen.nhlapp30.databinding.ActivityMainBinding
-import kotlinx.android.synthetic.main.activity_main.*
+import com.jurielonen.nhlapp30.schedule.NavigationSingleton
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         drawerLayout = binding.drawerLayout
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+        NavigationSingleton.getInstance().setNavController(navController)
         appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
 
         setSupportActionBar(binding.toolbar)

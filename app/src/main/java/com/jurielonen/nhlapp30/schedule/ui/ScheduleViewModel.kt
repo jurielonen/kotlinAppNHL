@@ -14,6 +14,11 @@ class ScheduleViewModel(private val repository: ScheduleRepository): ViewModel()
 
     private val queryLiveData = MutableLiveData<String>()
     private val scheduleResult = Transformations.map(queryLiveData) {
+        if(it[0] == 'R'){
+            queryLiveData.value = it.replace("R", "")
+            repository.refresh(it.replace("R", ""))
+        }
+        else
         repository.search(it)
     }
 
@@ -32,5 +37,9 @@ class ScheduleViewModel(private val repository: ScheduleRepository): ViewModel()
 
     }
 
+    fun refresh(){
+        queryLiveData.postValue("R${queryLiveData.value}")
+
+    }
     fun lastQueryValue(): String? = queryLiveData.value
 }
