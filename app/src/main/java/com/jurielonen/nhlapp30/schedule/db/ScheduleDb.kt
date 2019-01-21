@@ -4,17 +4,23 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.jurielonen.nhlapp30.schedule.fragments.model.GameData
+import com.jurielonen.nhlapp30.schedule.fragments.model.GoalieConverter
+import com.jurielonen.nhlapp30.schedule.fragments.model.PlayerConverter
 import com.jurielonen.nhlapp30.schedule.model.Games
 
 
 @Database(
-    entities = [Games::class],
+    entities = [Games::class, GameData::class],
     version = 1,
     exportSchema = false
 )
 abstract class ScheduleDb: RoomDatabase() {
 
     abstract fun scheduleDao(): ScheduleDao
+
+    abstract fun gameDao(): GameDao
 
     companion object {
         @Volatile

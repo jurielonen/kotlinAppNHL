@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jurielonen.nhlapp30.R
 import com.jurielonen.nhlapp30.schedule.model.Games
 
-class GameAdapter  : PagedListAdapter<Games, RecyclerView.ViewHolder>(GameDiffCallback()) {
+class GameAdapter: PagedListAdapter<Games, RecyclerView.ViewHolder>(GameDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return GameViewHolder(
@@ -17,18 +17,11 @@ class GameAdapter  : PagedListAdapter<Games, RecyclerView.ViewHolder>(GameDiffCa
         )
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        getItem(position).let{ game ->
-            with(holder){
-                itemView.tag = game
-                (this as GameViewHolder).bind(game!!)
-            }
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) = getItem(position).let{ game ->
+        with(holder){
+            itemView.tag = game
+            (this as GameViewHolder).bind(game!!)
         }
-        /*
-        val scheduleItem = getItem(position)
-        if (scheduleItem != null) {
-            (holder as GameViewHolder).bind(scheduleItem)
-        }*/
     }
 }
 

@@ -2,6 +2,7 @@ package com.jurielonen.nhlapp30.schedule.db
 
 import android.util.Log
 import androidx.paging.DataSource
+import com.jurielonen.nhlapp30.schedule.fragments.model.GameData
 import com.jurielonen.nhlapp30.schedule.model.Games
 import java.util.concurrent.Executor
 
@@ -15,6 +16,7 @@ class ScheduleLocalCache(private val scheduleDao: ScheduleDao, private val ioExe
         }
     }
 
+
     fun reposByDate(date: String): DataSource.Factory<Int, Games> {
         return scheduleDao.reposByDate(date)
     }
@@ -22,7 +24,7 @@ class ScheduleLocalCache(private val scheduleDao: ScheduleDao, private val ioExe
     fun deleteByDate(date: String){
         ioExecutor.execute {
             Log.d("ScheduleLocalCache", "deleting $date repos")
-            scheduleDao.deleteBySubreddit(date)
+            scheduleDao.deleteByDate(date)
         }
     }
 }

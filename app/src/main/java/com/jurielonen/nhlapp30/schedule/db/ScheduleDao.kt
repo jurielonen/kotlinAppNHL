@@ -17,5 +17,5 @@ interface ScheduleDao {
     fun reposByDate(query: String): DataSource.Factory<Int, Games>
 
     @Query("DELETE FROM games WHERE (date LIKE :query)")
-    fun deleteBySubreddit(query: String)
+    fun deleteByDate(query: String)
 }

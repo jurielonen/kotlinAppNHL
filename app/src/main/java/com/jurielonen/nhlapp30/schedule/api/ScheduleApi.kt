@@ -1,5 +1,8 @@
 package com.jurielonen.nhlapp30.schedule.api
 
+import android.util.Log
+import com.google.gson.Gson
+import com.jurielonen.nhlapp30.schedule.fragments.model.*
 import com.jurielonen.nhlapp30.schedule.model.Games
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -9,6 +12,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 
@@ -17,7 +21,7 @@ fun searchSchedule(api: ScheduleApi,
                    onSuccess: (schedule: List<Games>)->Unit,
                    onError: (error: String)-> Unit){
 
-    api.searchRepos(path, "game(content(media(epg),highlights(scoreboard)))").enqueue(
+    api.searchScheduleSingle(path, "game(content(media(epg),highlights(scoreboard)))").enqueue(
         object : Callback<ScheduleResponse>{
             override fun onFailure(call: Call<ScheduleResponse>, t: Throwable) {
                 onError(t.message ?: "unknown error")
@@ -59,13 +63,102 @@ fun searchSchedule(api: ScheduleApi,
     )
 }
 
+
+fun searchGame(api: ScheduleApi,
+               path: String,
+               onSuccess: (schedule: GameData)->Unit,
+               onError: (error: String)-> Unit){
+
+
+    api.searchGameData(path).enqueue(
+        object : Callback<GameResponse>{
+            override fun onFailure(call: Call<GameResponse>, t: Throwable) {
+                onError(t.message ?: "unknown error")
+            }
+
+            override fun onResponse(
+                call: Call<GameResponse>,
+                response: Response<GameResponse>) {
+
+                if(response.isSuccessful){
+                    Log.d("AllPlays", Gson().toJson(response.raw().body()))
+
+                    val plays = response.body()!!.liveData.plays
+                    val boxScore = response.body()!!.liveData.boxscore.teams
+
+                    onSuccess(
+                        GameData(
+                            response.body()!!.gamePk,
+                            response.body()!!.gameData,
+                            parsePlays(plays),
+                            parseTeams(boxScore)
+                        )
+                    )
+
+                } else {
+                    onError(response.errorBody()?.string() ?: "Unknown error")
+                }
+            }
+        }
+    )
+}
+
+private fun parsePlays(plays: ResponsePlays): List<GamePlays>{
+    val allPlays = plays.allPlays
+    val playsToGet = (plays.scoringPlays + plays.penaltyPlays)
+    playsToGet.sortedDescending()
+    return playsToGet.map {
+        val x = allPlays[it]
+        GamePlays(x.result.event, x.result.description, x.result.penaltyMinutes, x.about.period, x.about.periodTime)
+    }
+}
+
+private fun parseTeams(teams: ResponseTeams): GameBoxScore{
+
+    return GameBoxScore(BoxScoreTeams(
+        BoxScoreTeamHome(teams.home.team, teams.home.teamStats, parseGoalies(teams.home), parsePlayers(teams.home)),
+        BoxScoreTeamAway(teams.away.team, teams.away.teamStats, parseGoalies(teams.away), parsePlayers(teams.away))))
+}
+
+private fun parsePlayers(team: ResponseTeam): List<GamePlayer> {
+    val allPlayers = team.players
+    return team.skaters.map {
+        var x = GamePlayer()
+        for (a in allPlayers) {
+            if(a.key == "ID$it") {
+                x = GamePlayer(a.value.person.id, a.value.person.fullName, a.value.position.code, a.value.position.name, a.value.stats.skaterStats)
+                break
+            }
+        }
+        x
+    }
+}
+
+private fun parseGoalies(team: ResponseTeam): List<GameGoalie> {
+    val allPlayers = team.players
+    return team.goalies.map {
+        var x = GameGoalie()
+        for (a in allPlayers) {
+            if (a.key == "ID$it") {
+                x = GameGoalie(it, a.value.person.fullName, a.value.position.code, a.value.position.name, a.value.stats.goalieStats)
+                break
+            }
+        }
+        x
+    }
+
+}
+
 interface ScheduleApi {
 
     @GET("api/v1/schedule")
-    fun searchRepos(@Query("date") query: String,
+    fun searchScheduleSingle(@Query("date") query: String,
                     @Query("hydrate") hydrate: String
                     ): Call<ScheduleResponse>
 
+
+    @GET("api/v1/game/{id}/feed/live")
+    fun searchGameData(@Path("id") id: String): Call<GameResponse>
 
     companion object {
         private const val BASE_URL = "https://statsapi.web.nhl.com/"

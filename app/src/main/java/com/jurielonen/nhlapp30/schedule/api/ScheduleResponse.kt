@@ -1,7 +1,6 @@
 package com.jurielonen.nhlapp30.schedule.api
 
 import com.google.gson.annotations.SerializedName
-import com.jurielonen.nhlapp30.schedule.model.Games
 import com.jurielonen.nhlapp30.schedule.model.Status
 import com.jurielonen.nhlapp30.schedule.model.Teams
 import com.jurielonen.nhlapp30.schedule.model.Venue

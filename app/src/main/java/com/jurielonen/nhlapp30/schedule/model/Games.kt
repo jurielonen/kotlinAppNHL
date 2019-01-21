@@ -59,7 +59,7 @@ data class Games(
 }
 
 data class Status(
-    val codedGameState: Int
+    val codedGameState: Int? = 0
 )
 
 data class Teams(
@@ -91,5 +91,5 @@ data class TeamDetails(
 )
 
 data class Venue(
-    val name: String
+    val name: String? = ""
 )
