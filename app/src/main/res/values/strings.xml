@@ -42,7 +42,7 @@
 
 
     <string-array name="game_final_fragment">
-        <item>stats</item>
+        <!--<item>stats</item>-->
         <item>plays</item>
         <item>players</item>
     </string-array>

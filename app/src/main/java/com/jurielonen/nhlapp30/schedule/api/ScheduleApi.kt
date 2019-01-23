@@ -81,7 +81,6 @@ fun searchGame(api: ScheduleApi,
                 response: Response<GameResponse>) {
 
                 if(response.isSuccessful){
-                    Log.d("AllPlays", Gson().toJson(response.raw().body()))
 
                     val plays = response.body()!!.liveData.plays
                     val boxScore = response.body()!!.liveData.boxscore.teams
@@ -89,7 +88,18 @@ fun searchGame(api: ScheduleApi,
                     onSuccess(
                         GameData(
                             response.body()!!.gamePk,
-                            response.body()!!.gameData,
+                            response.body()!!.gameData.status!!.codedGameState!!,
+                            response.body()!!.gameData.datetime!!.dateTime!!,
+                            response.body()!!.gameData.venue!!.name!!,
+                            response.body()!!.gameData.status!!.detailedState!!,
+                            GameDataTeam(
+                                response.body()!!.gameData.teams!!.home!!.id,
+                                response.body()!!.gameData.teams!!.home!!.name,
+                                response.body()!!.liveData.linescore.teams.home.goals),
+                            GameDataTeam(
+                                response.body()!!.gameData.teams!!.away!!.id,
+                                response.body()!!.gameData.teams!!.away!!.name,
+                                response.body()!!.liveData.linescore.teams.away.goals),
                             parsePlays(plays),
                             parseTeams(boxScore)
                         )
@@ -109,15 +119,15 @@ private fun parsePlays(plays: ResponsePlays): List<GamePlays>{
     playsToGet.sortedDescending()
     return playsToGet.map {
         val x = allPlays[it]
-        GamePlays(x.result.event, x.result.description, x.result.penaltyMinutes, x.about.period, x.about.periodTime)
+        GamePlays(x.team.name ,x.result.event, x.result.description, x.result.penaltyMinutes, x.about.period, x.about.periodTime)
     }
 }
 
 private fun parseTeams(teams: ResponseTeams): GameBoxScore{
 
     return GameBoxScore(BoxScoreTeams(
-        BoxScoreTeamHome(teams.home.team, teams.home.teamStats, parseGoalies(teams.home), parsePlayers(teams.home)),
-        BoxScoreTeamAway(teams.away.team, teams.away.teamStats, parseGoalies(teams.away), parsePlayers(teams.away))))
+        BoxScoreTeamHome(teams.home.team.id, teams.home.team.name, teams.home.teamStats, parseGoalies(teams.home), parsePlayers(teams.home)),
+        BoxScoreTeamAway(teams.away.team.id, teams.away.team.name, teams.away.teamStats, parseGoalies(teams.away), parsePlayers(teams.away))))
 }
 
 private fun parsePlayers(team: ResponseTeam): List<GamePlayer> {

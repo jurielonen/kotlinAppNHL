@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         drawerLayout = binding.drawerLayout
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-        NavigationSingleton.getInstance().setNavController(navController)
+        NavigationSingleton.getInstance().setNavController(navController, applicationContext)
         appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
 
         setSupportActionBar(binding.toolbar)

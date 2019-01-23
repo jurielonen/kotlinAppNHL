@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="time" type="String"/>
+        <variable name="state" type="String"/>
+        <variable name="home" type="String"/>
+        <variable name="away" type="String"/>
+        <variable name="scoreHome" type="String"/>
+        <variable name="scoreAway" type="String"/>
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -37,7 +47,7 @@
                     android:id="@+id/finalStatusText"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
-                    android:text="@string/game_final"
+                    android:text="@{state}"
                     android:textAlignment="center"
                     android:textAllCaps="true"
                     android:textColor="@color/gameText"
@@ -54,7 +64,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:alpha="0.2"
-                    android:src="@drawable/logo_bos"
+                    app:setImage="@{away}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/finalHomeImage"
@@ -66,7 +76,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:alpha="0.2"
-                    android:src="@drawable/logo_ana"
+                    app:setImage="@{home}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/finalAwayImage"
                     app:layout_constraintStart_toStartOf="parent"
@@ -79,7 +89,7 @@
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="4dp"
-                    android:text="@string/game_away"
+                    android:text="@{away}"
                     android:textAlignment="center"
                     android:textAllCaps="true"
                     android:textColor="@color/gameText"
@@ -95,7 +105,7 @@
                     android:layout_height="40dp"
                     android:layout_marginStart="32dp"
                     android:layout_marginLeft="32dp"
-                    android:text="@string/game_away"
+                    android:text="@{scoreAway}"
                     android:textAlignment="center"
                     android:textAllCaps="true"
                     android:textColor="@color/gameText"
@@ -110,7 +120,7 @@
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="4dp"
-                    android:text="@string/game_home"
+                    android:text="@{home}"
                     android:textAlignment="center"
                     android:textAllCaps="true"
                     android:textColor="@color/gameText"
@@ -126,7 +136,7 @@
                     android:layout_height="40dp"
                     android:layout_marginEnd="32dp"
                     android:layout_marginRight="32dp"
-                    android:text="@string/game_home"
+                    android:text="@{scoreHome}"
                     android:textAlignment="center"
                     android:textAllCaps="true"
                     android:textColor="@color/gameText"

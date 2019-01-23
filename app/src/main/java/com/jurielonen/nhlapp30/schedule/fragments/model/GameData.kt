@@ -1,7 +1,11 @@
 package com.jurielonen.nhlapp30.schedule.fragments.model
 
 import androidx.room.*
+import androidx.room.ForeignKey.CASCADE
 import com.google.gson.annotations.SerializedName
+import com.jurielonen.nhlapp30.schedule.fragments.recycler_view_adapters.list.PlaysConstant
+import com.jurielonen.nhlapp30.schedule.fragments.recycler_view_adapters.list.SkaterConstants
+import com.jurielonen.nhlapp30.schedule.fragments.recycler_view_adapters.list.ViewType
 import com.jurielonen.nhlapp30.schedule.model.Games
 import com.jurielonen.nhlapp30.schedule.model.Status
 import com.jurielonen.nhlapp30.schedule.model.Venue
@@ -12,48 +16,43 @@ import com.jurielonen.nhlapp30.schedule.model.Venue
     foreignKeys = [ForeignKey(
         entity = Games::class,
         parentColumns = arrayOf("gamePk"),
-        childColumns = arrayOf("gamePk"))]
-)
+        childColumns = arrayOf("gamePk"),
+        onDelete = CASCADE)])
 data class GameData(
     @PrimaryKey
     val gamePk: Int,
-    @Embedded
-    val gameDetails: GameDetails? = GameDetails(),
+    val status: Int,
+    val dateTime: String,
+    val venue: String,
+    val state: String,
+    @Embedded(prefix = "home_")
+    val home: GameDataTeam? = GameDataTeam(),
+    @Embedded(prefix = "away_")
+    val away: GameDataTeam? = GameDataTeam(),
+
     val plays: List<GamePlays>? = emptyList(),
     @Embedded
     val boxScore: GameBoxScore? = GameBoxScore()
 )
 
-data class GameDetails(
-    @Embedded
-    val status: Status? = Status(),
-    @Embedded
-    val datetime: GameDateTime? = GameDateTime(),
-    @Embedded
-    val venue: Venue? = Venue(),
-    @Embedded
-    val teams: GameDataTeams? = GameDataTeams()
-)
-
-data class GameDateTime(
-    val dateTime: String? = ""
-)
-
-data class GameDataTeams(
-    @Embedded(prefix = "home_")
-    val home: GameDataTeam? = GameDataTeam(),
-    @Embedded(prefix = "away_")
-    val away: GameDataTeam? = GameDataTeam()
+data class GameDataTeam(
+    val id: Int? = 0,
+    val name: String? = "",
+    val goals: Int = 0
 )
 
 @Entity
 data class GamePlays(
+    val team: String,
     val event: String,
     val description: String,
     val penaltyMinutes: Int? = 0,
     val period: Int,
     val periodTime: String
-)
+): ViewType{
+    override fun getViewType() = PlaysConstant.ITEM
+    val time = (Integer.toString(period) + periodTime.replace(":", "")).toInt()
+}
 
 data class GameBoxScore(
     @Embedded(prefix = "teams_box_")
@@ -67,10 +66,9 @@ data class BoxScoreTeams(
     val away: BoxScoreTeamAway? = BoxScoreTeamAway()
 )
 
-
 data class BoxScoreTeamHome(
-    @Embedded
-    val team: GameDataTeam? = GameDataTeam(),
+    val id: Int? = 0,
+    val name: String? = "",
     @Embedded
     val teamStats: GameTeamStats? = GameTeamStats(),
     val goalies: List<GameGoalie>? = emptyList(),
@@ -78,17 +76,12 @@ data class BoxScoreTeamHome(
 )
 
 data class BoxScoreTeamAway(
-    @Embedded
-    val team: GameDataTeam? = GameDataTeam(),
+    val id: Int? = 0,
+    val name: String? = "",
     @Embedded
     val teamStats: GameTeamStats? = GameTeamStats(),
     val goalies: List<GameGoalie>? = emptyList(),
     val skaters: List<GamePlayer>? = emptyList()
-)
-
-data class GameDataTeam(
-    val id: Int? = 0,
-    val name: String? = ""
 )
 
 @Entity
@@ -98,7 +91,9 @@ data class GameGoalie(
     val code: String? = "",
     val name: String? = "",
     val stats: GameGoalieStats? = GameGoalieStats()
-)
+): ViewType{
+    override fun getViewType() = SkaterConstants.GOALIE
+}
 
 @Entity
 data class GamePlayer(
@@ -107,7 +102,9 @@ data class GamePlayer(
     val code: String? = "",
     val name: String? = "",
     val stats: GameSkaterStats? = GameSkaterStats()
-)
+): ViewType{
+    override fun getViewType() = SkaterConstants.PLAYER
+}
 
 data class GameTeamStats(
     @Embedded
@@ -116,7 +113,7 @@ data class GameTeamStats(
 
 data class GameTeamSkaterStats(
     val goals: Int = 0,
-    val pi: Int = 0,
+    val pim: Int = 0,
     val shots: Int = 0,
     val powerPlayPercentage: String? = "",
     val powerPlayGoals: Int = 0,

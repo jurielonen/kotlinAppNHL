@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+        <TextView
+                android:id="@+id/gameGoalieStatListNameText"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="2dp"
+                android:layout_marginStart="2dp"
+                android:gravity="start"
+                android:text="NAME"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/gameText"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/gameGoalieStatListTOIStats"
+                app:layout_constraintStart_toEndOf="@+id/gameGoalieStatListTOIStats"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+                android:id="@+id/gameGoalieStatListTOIStats"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:text="TOI"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/gameText"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/gameGoalieStatListSavesStats"
+                app:layout_constraintStart_toEndOf="@+id/gameGoalieStatListNameText"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+
+        <TextView
+                android:id="@+id/gameGoalieStatListSavesStats"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Svs"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/gameText"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/gameGoalieStatListShotsStats"
+                app:layout_constraintStart_toEndOf="@+id/gameGoalieStatListTOIStats"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+                android:id="@+id/gameGoalieStatListShotsStats"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="SA"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/gameText"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/gameGoalieStatListSavePerStats"
+                app:layout_constraintStart_toEndOf="@+id/gameGoalieStatListSavesStats"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+                android:id="@+id/gameGoalieStatListSavePerStats"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="S%"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/gameText"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/gameGoalieStatListShotsStats"
+                app:layout_constraintTop_toTopOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

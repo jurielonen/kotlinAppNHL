@@ -2,6 +2,13 @@ package com.jurielonen.nhlapp30
 
 import android.view.View
 import android.widget.ImageView
+import com.jurielonen.nhlapp30.schedule.fragments.model.GameGoalie
+import com.jurielonen.nhlapp30.schedule.fragments.model.GamePlayer
+import com.jurielonen.nhlapp30.schedule.fragments.model.GamePlays
+import com.jurielonen.nhlapp30.schedule.fragments.recycler_view_adapters.list.ListGoaliePlayerHeader
+import com.jurielonen.nhlapp30.schedule.fragments.recycler_view_adapters.list.ListPlayerHeader
+import com.jurielonen.nhlapp30.schedule.fragments.recycler_view_adapters.list.ListPlaysHeader
+import com.jurielonen.nhlapp30.schedule.fragments.recycler_view_adapters.list.ViewType
 import com.jurielonen.nhlapp30.schedule.model.Games
 
 object Helper {
@@ -73,4 +80,31 @@ object Helper {
             else -> image.setImageResource(R.drawable.right_arrow)
         }
     }
+
+    fun formatPlays(plays: List<GamePlays>): List<ViewType>{
+        val a = plays as ArrayList
+        a.add(GamePlays("", "START", "", 0, 1, "00:00"))
+        a.add(GamePlays("", "START", "", 0, 2, "00:00"))
+        a.add(GamePlays("", "START", "", 0, 3, "00:00"))
+
+         return a.sortedWith(compareBy{it.time}).map {
+             when(it.event){
+             "START" -> ListPlaysHeader(it.time)
+             else -> it
+         } }
+    }
+
+    fun formatPlayers(homePlayers: List<GamePlayer>, homeGoalies: List<GameGoalie>, awayPlayers: List<GamePlayer>, awayGoalies: List<GameGoalie>): List<ViewType>{
+        val a = ArrayList<ViewType>()
+        a.add(ListPlayerHeader())
+        a.addAll(homePlayers)
+        a.add(ListGoaliePlayerHeader())
+        a.addAll(homeGoalies)
+        a.add(ListPlayerHeader())
+        a.addAll(awayPlayers)
+        a.add(ListGoaliePlayerHeader())
+        a.addAll(awayGoalies)
+        return a
+    }
+
 }

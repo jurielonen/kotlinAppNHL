@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="play" type="com.jurielonen.nhlapp30.schedule.fragments.model.GamePlays"/>
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:id="@+id/playsPeriodText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="2dp"
+                android:text="@{play.event}"
+                android:textColor="@color/gamePlaysText"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/playListImageView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.523" android:layout_marginLeft="5dp"/>
+
+        <TextView
+                android:id="@+id/playsTimeText"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="2dp"
+                android:text="@{play.periodTime}"
+                android:textColor="@color/gamePlaysText"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/playsPeriodText"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.523" android:layout_marginLeft="5dp"/>
+
+        <TextView
+                android:id="@+id/playsDescText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:text="@{play.description}"
+                android:textAlignment="center"
+                android:textColor="@color/gamePlaysText"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/playsTimeText"
+                app:layout_constraintTop_toTopOf="parent" android:layout_marginLeft="2dp"
+                android:layout_marginRight="10dp"/>
+
+        <ImageView
+                android:id="@+id/playListImageView"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="2dp"
+                app:setImage="@{play.team}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@android:color/transparent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

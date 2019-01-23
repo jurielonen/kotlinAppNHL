@@ -53,6 +53,6 @@ class ScheduleRepository(
     }
 
     companion object {
-        private const val DATABASE_PAGE_SIZE = 20
+        private const val DATABASE_PAGE_SIZE = 5
     }
 }

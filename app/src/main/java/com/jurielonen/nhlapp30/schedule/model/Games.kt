@@ -41,9 +41,6 @@ data class Games(
         }
     }
 
-    fun homeRecord(): String{
-        return "${teams.home.leagueRecord.wins}-${teams.home.leagueRecord.losses}-${teams.home.leagueRecord.ot}"
-    }
     fun awayStat(): String{
         return when(status.codedGameState){
             1->"${teams.away.leagueRecord.wins}-${teams.away.leagueRecord.losses}-${teams.away.leagueRecord.ot}"
@@ -52,14 +49,11 @@ data class Games(
             else->"${teams.away.score}"
         }
     }
-
-    fun awayRecord(): String{
-        return "${teams.away.leagueRecord.wins}-${teams.away.leagueRecord.losses}-${teams.away.leagueRecord.ot}"
-    }
 }
 
 data class Status(
-    val codedGameState: Int? = 0
+    val codedGameState: Int? = 0,
+    val detailedState: String? = ""
 )
 
 data class Teams(

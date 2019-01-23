@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="name" type="String"/>
+        <variable name="toi" type="String"/>
+        <variable name="g" type="String"/>
+        <variable name="a" type="String"/>
+        <variable name="pm" type="String"/>
+        <variable name="s" type="String"/>
+        <variable name="b" type="String"/>
+        <variable name="pim" type="String"/>
+        <variable name="h" type="String"/>
+        <variable name="tv" type="String"/>
+        <variable name="gv" type="String"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/background">
+
+        <TextView
+                android:id="@+id/gameSkaterStatListNameText"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="2dp"
+                android:layout_marginStart="2dp"
+                android:gravity="start"
+                android:text="@{name}"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/gamePlayerText"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/gameSkaterStatListTOIStats"
+                app:layout_constraintStart_toEndOf="@+id/gameSkaterStatListTOIStats"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"/>
+
+        <TextView
+                android:id="@+id/gameSkaterStatListTOIStats"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:text="@{toi}"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/gamePlayerText"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/gameSkaterStatListGoalsStats"
+                app:layout_constraintStart_toEndOf="@+id/gameSkaterStatListNameText"
+                app:layout_constraintTop_toTopOf="parent" android:layout_marginLeft="3dp"/>
+
+        <TextView
+                android:id="@+id/gameSkaterStatListGoalsStats"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{g}"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/gamePlayerText"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/gameSkaterStatListAssistStats"
+                app:layout_constraintStart_toEndOf="@+id/gameSkaterStatListTOIStats"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+                android:id="@+id/gameSkaterStatListAssistStats"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{a}"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/gamePlayerText"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/gameSkaterStatListPlusMinusStats"
+                app:layout_constraintStart_toEndOf="@+id/gameSkaterStatListGoalsStats"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+                android:id="@+id/gameSkaterStatListPlusMinusStats"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{pm}"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/gamePlayerText"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/gameSkaterStatListShotsStats"
+                app:layout_constraintStart_toEndOf="@+id/gameSkaterStatListAssistStats"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+                android:id="@+id/gameSkaterStatListShotsStats"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{s}"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/gamePlayerText"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/gameSkaterStatListBlockedStats"
+                app:layout_constraintStart_toEndOf="@+id/gameSkaterStatListPlusMinusStats"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+                android:id="@+id/gameSkaterStatListBlockedStats"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{b}"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/gamePlayerText"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/gameSkaterStatListPIMStats"
+                app:layout_constraintStart_toEndOf="@+id/gameSkaterStatListShotsStats"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+                android:id="@+id/gameSkaterStatListPIMStats"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{pim}"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/gamePlayerText"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/gameSkaterStatListHitsStats"
+                app:layout_constraintStart_toEndOf="@+id/gameSkaterStatListBlockedStats"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+                android:id="@+id/gameSkaterStatListHitsStats"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{h}"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/gamePlayerText"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/gameSkaterStatListTkStats"
+                app:layout_constraintStart_toEndOf="@+id/gameSkaterStatListPIMStats"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+                android:id="@+id/gameSkaterStatListTkStats"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{tv}"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/gamePlayerText"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/gameSkaterStatListGvStats"
+                app:layout_constraintStart_toEndOf="@+id/gameSkaterStatListHitsStats"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+                android:id="@+id/gameSkaterStatListGvStats"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{gv}"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/gamePlayerText"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/gameSkaterStatListTkStats"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
