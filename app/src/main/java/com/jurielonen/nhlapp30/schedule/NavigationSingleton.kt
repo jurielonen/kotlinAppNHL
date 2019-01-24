@@ -55,6 +55,7 @@ class NavigationSingleton {
                 args.putString("AWAY_RECORD", game.awayStat())
                 args.putString("STATE", game.status.detailedState)
                 Log.d("Navigation", "game live")
+                //TODO: Check how state live works in final fragment
                 navController.navigate(R.id.action_schedule_dest_to_game_final_dest, args)
             }
             7->{
@@ -75,4 +76,18 @@ class NavigationSingleton {
             }
         }
     }
+
+    fun scheduleVideoButtonClicked(url: String){
+        val args = Bundle()
+        args.putString("URL", url)
+        navController.navigate(R.id.action_schedule_dest_to_video_dest, args)
+    }
+
+
+    fun finalVideoButtonClicked(url: String){
+        val args = Bundle()
+        args.putString("URL", url)
+        navController.navigate(R.id.action_game_final_dest_to_video_dest, args)
+    }
+
 }

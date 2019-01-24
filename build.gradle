@@ -41,6 +41,7 @@ ext {
     coreVersion = "1.1.0-alpha03"
     coroutinesVersion = "1.0.1"
 
+    exoPlayer = "2.7.3"
     archComponentsVersion = "2.0.0"
     roomVersion = "2.1.0-alpha03"
     pagingVersion = "2.1.0-rc01"

@@ -11,6 +11,7 @@ class GameViewHolder(private val binding: ScheduleGamesBinding): RecyclerView.Vi
     fun bind(game: Games) {
         with(binding) {
             gameData = game
+            urls = game.status.codedGameState == 7
             navigation = NavigationSingleton.getInstance()
             executePendingBindings()
         }

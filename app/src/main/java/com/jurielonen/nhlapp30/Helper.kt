@@ -77,7 +77,7 @@ object Helper {
 
             "Winnipeg Jets" -> R.drawable.logo_wpg
 
-            else -> R.drawable.right_arrow
+            else -> R.drawable.league_logo
         }
     }
 

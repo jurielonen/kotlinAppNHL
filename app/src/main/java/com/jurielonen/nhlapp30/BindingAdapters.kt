@@ -1,10 +1,11 @@
 package com.jurielonen.nhlapp30
 
-import android.graphics.Color
-import android.graphics.drawable.Drawable
+
 import android.os.Build
-import android.provider.CalendarContract
+import android.view.View
+import android.widget.Button
 import android.widget.ImageView
+import android.widget.ProgressBar
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
@@ -20,6 +21,11 @@ object BindingAdapters {
         view.setImageResource(Helper.chooseImage(team))
     }
 
+    @BindingAdapter("app:goneUnless")
+    @JvmStatic
+    fun goneUnless(button: Button, visible: Boolean) {
+        button.visibility = if (visible) View.VISIBLE else View.GONE
+    }
 
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @BindingAdapter("set_constraint")
@@ -46,6 +52,10 @@ object BindingAdapters {
         Picasso.get().load(url).error(Helper.chooseImage(error)).into(view)
     }
 
-
+    @BindingAdapter(value = ["app:progressScaled"])
+    @JvmStatic
+    fun setProgress(progressBar: ProgressBar, progress: Int) {
+        progressBar.progress = progress
+    }
 
 }

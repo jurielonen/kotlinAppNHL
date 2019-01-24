@@ -8,11 +8,12 @@ import androidx.room.TypeConverters
 import com.jurielonen.nhlapp30.schedule.fragments.model.GameData
 import com.jurielonen.nhlapp30.schedule.fragments.model.GoalieConverter
 import com.jurielonen.nhlapp30.schedule.fragments.model.PlayerConverter
+import com.jurielonen.nhlapp30.schedule.model.Dates
 import com.jurielonen.nhlapp30.schedule.model.Games
 
 
 @Database(
-    entities = [Games::class],
+    entities = [Games::class, Dates::class],
     version = 1,
     exportSchema = false
 )

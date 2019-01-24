@@ -2,6 +2,7 @@ package com.jurielonen.nhlapp30.schedule.db
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import com.jurielonen.nhlapp30.schedule.model.Dates
 import com.jurielonen.nhlapp30.schedule.model.Games
 import java.util.concurrent.Executor
 
@@ -15,12 +16,17 @@ class ScheduleLocalCache(private val scheduleDao: ScheduleDao, private val ioExe
         }
     }
 
+    fun insertDates(date: Dates){
+        ioExecutor.execute{
+            scheduleDao.insertDate(date)
+        }
+    }
 
     fun reposByDate(date: String): LiveData<List<Games>> {
         return scheduleDao.reposByDate(date)
     }
 
-    fun checkByDate(date: String): List<Games> {
+    fun checkByDate(date: String): Dates {
         return scheduleDao.checkByDate(date)
     }
 

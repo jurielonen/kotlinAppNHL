@@ -5,6 +5,13 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+@Entity(tableName = "dates")
+data class Dates(
+    @PrimaryKey
+    val date: String,
+    val isThereGames: Boolean = false
+)
+
 @Entity(tableName = "games")
 data class Games(
     @PrimaryKey

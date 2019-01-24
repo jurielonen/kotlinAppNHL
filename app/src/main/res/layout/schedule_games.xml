@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="gameData" type="com.jurielonen.nhlapp30.schedule.model.Games"/>
+        <variable name="urls" type="Boolean"/>
         <variable name="navigation" type="com.jurielonen.nhlapp30.schedule.NavigationSingleton"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,7 +17,7 @@
                 android:layout_alignStart="@+id/scheduleVenueText"
                 android:layout_marginBottom="32dp"
                 android:layout_marginTop="8dp"
-                android:alpha="0.2"
+                android:alpha="0.4"
                 app:layout_constraintBottom_toBottomOf="@+id/scheduleTimeText"
                 app:layout_constraintEnd_toStartOf="@+id/scheduleAwayLogoImage"
                 app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +34,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginBottom="32dp"
                 android:layout_marginTop="8dp"
-                android:alpha="0.2"
+                android:alpha="0.4"
                 app:layout_constraintBottom_toBottomOf="@+id/scheduleTimeText"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/scheduleHomeLogoImage"
@@ -125,8 +126,9 @@
                 android:layout_marginBottom="16dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/video_button"
+                app:goneUnless="@{urls}"
                 android:text="RECAP"
-                android:onClick="@{() -> navigation.statsClicked(gameData)}"
+                android:onClick="@{() -> navigation.scheduleVideoButtonClicked(gameData.urlRecap)}"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/extendedButton"
@@ -140,8 +142,9 @@
                 android:layout_marginBottom="16dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/video_button"
+                app:goneUnless="@{urls}"
                 android:text="EXTENDED"
-                android:onClick="@{() -> navigation.statsClicked(gameData)}"
+                android:onClick="@{() -> navigation.scheduleVideoButtonClicked(gameData.urlExtended)}"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

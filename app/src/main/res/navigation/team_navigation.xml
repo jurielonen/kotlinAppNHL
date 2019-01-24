@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/player_navigation" app:startDestination="@id/player_fragment_dest">
+            android:id="@+id/team_navigation" app:startDestination="@id/team_fragment_dest">
 
     <activity android:id="@+id/standings_dest"
               android:name="com.jurielonen.nhlapp30.standings.StandingsActivity"
               android:label="StandingsActivity"
               tools:layout="@layout/activity_standings"/>
 
-    <activity android:id="@+id/team_dest"
-              android:name="com.jurielonen.nhlapp30.team.TeamActivity"
-              android:label="TeamActivity"
-              tools:layout="@layout/activity_team"/>
+    <activity android:id="@+id/player_dest"
+              android:name="com.jurielonen.nhlapp30.player.PlayerActivity"
+              android:label="PlayerActivity"
+              tools:layout="@layout/activity_player"/>
 
-    <fragment android:id="@+id/player_fragment_dest"
-              android:name="com.jurielonen.nhlapp30.player.PlayerFragment"
-              android:label="PlayerFragment"
-              tools:layout="@layout/fragment_player"/>
+    <fragment android:id="@+id/team_fragment_dest"
+              android:name="com.jurielonen.nhlapp30.team.TeamFragment"
+              android:label="TeamFragment"
+              tools:layout="@layout/fragment_team"
+    />
 
     <activity android:id="@+id/main_dest"
               android:name="com.jurielonen.nhlapp30.MainActivity"
               android:label="MainActivity"
               tools:layout="@layout/activity_main"/>
+
 </navigation>

@@ -8,17 +8,10 @@
     <fragment android:id="@+id/schedule_dest"
               android:name="com.jurielonen.nhlapp30.schedule.ScheduleFragment"
               android:label="@string/schedule_name"
-              tools:layout="@layout/schedule_fragment">
+              tools:layout="@layout/fragment_schedule">
 
         <action android:id="@+id/action_schedule_dest_to_game_final_dest"
                 app:destination="@id/game_final_dest"
-                app:enterAnim="@anim/slide_in_right"
-                app:exitAnim="@anim/slide_out_left"
-                app:popEnterAnim="@anim/slide_in_left"
-                app:popExitAnim="@anim/slide_out_right"/>
-
-        <action android:id="@+id/action_schedule_dest_to_video_dest"
-                app:destination="@id/video_dest"
                 app:enterAnim="@anim/slide_in_right"
                 app:exitAnim="@anim/slide_out_left"
                 app:popEnterAnim="@anim/slide_in_left"
@@ -30,13 +23,14 @@
                 app:exitAnim="@anim/slide_out_left"
                 app:popEnterAnim="@anim/slide_in_left"
                 app:popExitAnim="@anim/slide_out_right"/>
+        <action android:id="@+id/action_schedule_dest_to_video_dest"
+                app:destination="@id/video_dest"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right"/>
 
     </fragment>
-
-    <fragment android:id="@+id/video_dest"
-              android:name="com.jurielonen.nhlapp30.schedule.fragments.VideoFragment"
-              android:label="VideoFragment"
-              tools:layout="@layout/video_fragment"/>
 
     <activity android:id="@+id/player_dest"
               android:name="com.jurielonen.nhlapp30.player.PlayerActivity"
@@ -46,10 +40,33 @@
     <fragment android:id="@+id/game_final_dest"
               android:name="com.jurielonen.nhlapp30.schedule.fragments.GameFinalFragment"
               android:label="GameFinalFragment"
-              tools:layout="@layout/game_final_fragment"/>
+              tools:layout="@layout/fragment_game">
+
+        <action android:id="@+id/action_game_final_dest_to_video_dest"
+                app:destination="@id/video_dest"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
 
     <fragment android:id="@+id/game_preview_dest"
               android:name="com.jurielonen.nhlapp30.schedule.fragments.GamePreviewFragment"
               android:label="GamePreviewFragment"
-              tools:layout="@layout/game_final_fragment"/>
+              tools:layout="@layout/fragment_game"/>
+
+    <activity android:id="@+id/video_dest"
+              android:name="com.jurielonen.nhlapp30.schedule.video.VideoActivity"
+              android:label="activity_video"
+              tools:layout="@layout/activity_video"/>
+
+    <activity android:id="@+id/standings_dest"
+              android:name="com.jurielonen.nhlapp30.standings.StandingsActivity"
+              android:label="StandingsActivity"
+              tools:layout="@layout/activity_standings"/>
+
+    <activity android:id="@+id/team_dest"
+              android:name="com.jurielonen.nhlapp30.team.TeamActivity"
+              android:label="TeamActivity"
+              tools:layout="@layout/activity_team"/>
 </navigation>

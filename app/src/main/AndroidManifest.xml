@@ -13,9 +13,19 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".player.PlayerActivity">
+        <activity android:name=".team.TeamActivity">
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".standings.StandingsActivity">
+        </activity>
+        <activity android:name=".schedule.video.VideoActivity">
+        </activity>
+        <activity
+                android:name=".player.PlayerActivity"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".MainActivity"
+                android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

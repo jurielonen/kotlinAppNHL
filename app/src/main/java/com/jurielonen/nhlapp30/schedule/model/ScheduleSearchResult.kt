@@ -7,5 +7,9 @@ import androidx.paging.PagedList
 data class ScheduleSearchResult(
     val data: LiveData<List<Games>>,
     val networkErrors: LiveData<String>,
-    val isInProgress: LiveData<Boolean>
+    val isInProgress: LiveData<LoadingEnum>
 )
+
+enum class LoadingEnum{
+    SHOW_DATA, SHOW_EMPTY, LOADED, LOADING, REFRESH, ERROR
+}

@@ -4,6 +4,7 @@
     <string name="schedule_name">Schedule</string>
     <string name="player_name">Player</string>
     <string name="team_name">Team</string>
+    <string name="error_view">😨 ERROR.</string>
 
     <string name="schedule_vs">vs</string>
     <string name="schedule_team_name">columbus blue jackets</string>

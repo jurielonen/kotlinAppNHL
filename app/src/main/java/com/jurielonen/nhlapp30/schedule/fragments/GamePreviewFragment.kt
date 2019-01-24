@@ -10,22 +10,22 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.jurielonen.nhlapp30.R
-import com.jurielonen.nhlapp30.databinding.GameFinalFragmentBinding
+import com.jurielonen.nhlapp30.databinding.FragmentGameBinding
 import com.jurielonen.nhlapp30.schedule.Injection
 import com.jurielonen.nhlapp30.schedule.fragments.model.GamePreviewData
 import com.jurielonen.nhlapp30.schedule.fragments.pager.GamePreviewPagerAdapter
-import kotlinx.android.synthetic.main.game_final_fragment.*
+import kotlinx.android.synthetic.main.fragment_game.*
 
 class GamePreviewFragment: Fragment(){
 
-private lateinit var binding: GameFinalFragmentBinding
+private lateinit var binding: FragmentGameBinding
 private lateinit var viewModel: GamePreviewViewModel
 private lateinit var mContext: Context
-private var isInProgess = true
+private var isInProgress = true
 
 
 override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-    binding = GameFinalFragmentBinding.inflate(inflater, container, false)
+    binding = FragmentGameBinding.inflate(inflater, container, false)
 
 
     mContext = context ?: return binding.root
@@ -39,15 +39,17 @@ override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, saved
 
 override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    errorText.visibility = View.GONE
     binding.home = arguments!!.getString("HOME_TEAM", "UNKNOWN")
     binding.away = arguments!!.getString("AWAY_TEAM", "UNKNOWN")
     binding.state = arguments!!.getString("STATE", "UNKNOWN")
     binding.time = arguments!!.getString("TIME", "UNKNOWN")
     binding.scoreHome = arguments!!.getString("HOME_RECORD", "UNKNOWN")
     binding.scoreAway = arguments!!.getString("AWAY_RECORD", "UNKNOWN")
+    binding.urls = false
 
     viewModel.gameData.observe(this, Observer<GamePreviewData> {
-        if(it != null && !isInProgess){
+        if(it != null && !isInProgress){
             val headers = mContext.resources.getStringArray(R.array.game_final_fragment)
             val mPagerAdapter = GamePreviewPagerAdapter(fragmentManager!!, headers, it)
             finalViewPager.adapter = mPagerAdapter
@@ -56,10 +58,11 @@ override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
     viewModel.networkErrors.observe(this, Observer<String> {
         Toast.makeText(context, "\uD83D\uDE28 Wooops $it", Toast.LENGTH_LONG).show()
+        errorText.visibility = View.VISIBLE
     })
 
     viewModel.isRequestInProgress.observe(this, Observer<Boolean> {
-        isInProgess = it
+        isInProgress = it
         if(it)
             loadingData.visibility = View.VISIBLE
         else

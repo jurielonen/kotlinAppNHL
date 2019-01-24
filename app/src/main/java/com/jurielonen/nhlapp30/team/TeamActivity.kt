@@ -1,4 +1,4 @@
-package com.jurielonen.nhlapp30.player
+package com.jurielonen.nhlapp30.team
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,9 +12,9 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.jurielonen.nhlapp30.R
-import com.jurielonen.nhlapp30.databinding.ActivityPlayerBinding
+import com.jurielonen.nhlapp30.databinding.ActivityTeamBinding
 
-class PlayerActivity : AppCompatActivity() {
+class TeamActivity : AppCompatActivity() {
 
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -24,17 +24,17 @@ class PlayerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
 
-        val binding: ActivityPlayerBinding
-                = DataBindingUtil.setContentView(this, R.layout.activity_player)
+        val binding: ActivityTeamBinding
+                = DataBindingUtil.setContentView(this, R.layout.activity_team)
 
-        drawerLayout = binding.playerDrawerLayout
-        navController = Navigation.findNavController(this, R.id.nav_player_fragment)
+        drawerLayout = binding.teamDrawerLayout
+        navController = Navigation.findNavController(this, R.id.nav_team_fragment)
         appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
 
-        setSupportActionBar(binding.playerToolbar)
+        setSupportActionBar(binding.teamToolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        binding.playerNavigationView.setupWithNavController(navController)
+        binding.teamNavigationView.setupWithNavController(navController)
 
     }
 

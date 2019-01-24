@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
 import com.jurielonen.nhlapp30.schedule.model.Games
 import com.jurielonen.nhlapp30.schedule.data.ScheduleRepository
+import com.jurielonen.nhlapp30.schedule.model.LoadingEnum
 
 class ScheduleViewModel(private val repository: ScheduleRepository): ViewModel() {
 
@@ -32,7 +33,7 @@ class ScheduleViewModel(private val repository: ScheduleRepository): ViewModel()
         Log.d("ScheduleViewModel", "networkerrors: ${it.networkErrors} ")
         it.networkErrors }
 
-    val isRequestInProgress: LiveData<Boolean> = Transformations.switchMap(scheduleResult){
+    val isRequestInProgress: LiveData<LoadingEnum> = Transformations.switchMap(scheduleResult){
         it ->
         Log.d("ScheduleViewModel", "progress: ${it.isInProgress} ")
         it.isInProgress

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <androidx.drawerlayout.widget.DrawerLayout
-            android:id="@+id/player_drawer_layout"
+            android:id="@+id/standings_drawer_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true">
@@ -11,13 +13,13 @@
                 android:orientation="vertical">
 
             <com.google.android.material.appbar.AppBarLayout
-                    android:id="@+id/player_appbar"
+                    android:id="@+id/standings_appbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
                 <androidx.appcompat.widget.Toolbar
-                        android:id="@+id/player_toolbar"
+                        android:id="@+id/standings_toolbar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/colorPrimary"
@@ -25,18 +27,18 @@
             </com.google.android.material.appbar.AppBarLayout>
 
             <fragment
-                    android:id="@+id/nav_player_fragment"
+                    android:id="@+id/nav_standings_fragment"
                     android:name="androidx.navigation.fragment.NavHostFragment"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     app:defaultNavHost="true"
-                    app:navGraph="@navigation/player_navigation"/>
+                    app:navGraph="@navigation/standings_navigation"/>
 
         </LinearLayout>
 
         <com.google.android.material.navigation.NavigationView
-                android:id="@+id/player_navigation_view"
+                android:id="@+id/standings_navigation_view"
                 style="@style/Widget.MaterialComponents.NavigationView"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"

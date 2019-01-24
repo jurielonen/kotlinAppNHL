@@ -9,8 +9,8 @@ import com.jurielonen.nhlapp30.schedule.fragments.model.GamePreviewSearchResult
 
 class GamePreviewGetter(private val api: ScheduleApi)
 {
-    fun search(query: String): GamePreviewSearchResult {
-        Log.d("GameRepository", "New query: $query")
+    fun search(home: Int, away: Int): GamePreviewSearchResult {
+        Log.d("GameRepository", "New query: $home,$away")
 
         val isRequestInProgress = MutableLiveData<Boolean>()
         isRequestInProgress.postValue(true)
@@ -19,7 +19,7 @@ class GamePreviewGetter(private val api: ScheduleApi)
 
         val data = MutableLiveData<GamePreviewData>()
 
-        searchPreviewData(api, query, { game ->
+        searchPreviewData(api, home, away, { game ->
             isRequestInProgress.postValue(false)
             data.postValue(game)
         }, { error ->

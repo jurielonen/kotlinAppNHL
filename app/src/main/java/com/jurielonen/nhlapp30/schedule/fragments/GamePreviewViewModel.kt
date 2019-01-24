@@ -12,7 +12,8 @@ class GamePreviewViewModel(private val repository: GamePreviewGetter): ViewModel
 
     private val gameID = MutableLiveData<String>()
     private val gameResult = Transformations.map(gameID) {
-        repository.search(it)
+        val id = it.split(",")
+        repository.search(id[0].toInt(), id[1].toInt())
     }
 
     val gameData: LiveData<GamePreviewData> = Transformations.switchMap(gameResult

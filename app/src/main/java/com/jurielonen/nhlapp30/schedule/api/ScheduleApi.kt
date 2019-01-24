@@ -5,7 +5,9 @@ import com.jurielonen.nhlapp30.schedule.fragments.model.*
 import com.jurielonen.nhlapp30.schedule.fragments.recycler_view_adapters.list.finalStats
 import com.jurielonen.nhlapp30.schedule.fragments.recycler_view_adapters.list.previewRanks
 import com.jurielonen.nhlapp30.schedule.fragments.recycler_view_adapters.list.previewStats
+import com.jurielonen.nhlapp30.schedule.model.Dates
 import com.jurielonen.nhlapp30.schedule.model.Games
+import com.jurielonen.nhlapp30.schedule.model.Status
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -22,6 +24,7 @@ import java.util.concurrent.Executors
 fun searchSchedule(api: ScheduleApi,
                    path: String,
                    onSuccess: (schedule: List<Games>)->Unit,
+                   onNoGames: (date: Dates)->Unit,
                    onError: (error: String)-> Unit){
 
     api.searchScheduleSingle(path, "game(content(media(epg),highlights(scoreboard)))").enqueue(
@@ -57,7 +60,7 @@ fun searchSchedule(api: ScheduleApi,
 
                         onSuccess(games)
                     }else
-                        onError("No games error")
+                        onNoGames(Dates(path, false))
                 } else {
                     onError(response.errorBody()?.string() ?: "Unknown error")
                 }
@@ -86,31 +89,39 @@ fun searchGame(api: ScheduleApi,
 
                 if(response.isSuccessful){
 
-                    val plays = response.body()!!.liveData.plays
-                    val boxScore = response.body()!!.liveData.boxscore.teams
+                    if (response.body()!!.liveData != null && response.body()!!.liveData.plays != null &&
+                        response.body()!!.liveData.boxscore != null && response.body()!!.gameData != null) {
+                        val plays = response.body()!!.liveData.plays
+                        val boxScore = response.body()!!.liveData.boxscore.teams
 
-                    onSuccess(
-                        GameData(
-                            response.body()!!.gamePk,
-                            response.body()!!.gameData.status!!.codedGameState!!,
-                            response.body()!!.gameData.datetime!!.dateTime!!,
-                            response.body()!!.gameData.venue!!.name!!,
-                            response.body()!!.gameData.status!!.detailedState!!,
-                            GameDataTeam(
-                                response.body()!!.gameData.teams!!.home!!.id,
-                                response.body()!!.gameData.teams!!.home!!.name,
-                                response.body()!!.liveData.linescore.teams.home.goals),
-                            GameDataTeam(
-                                response.body()!!.gameData.teams!!.away!!.id,
-                                response.body()!!.gameData.teams!!.away!!.name,
-                                response.body()!!.liveData.linescore.teams.away.goals),
-                            Helper.parsePlays(plays, response.body()!!.gameData.teams!!.home!!.name!!),
-                            Helper.parseTeamsPlayers(boxScore),
-                            Helper.parseStats(response.body()!!.liveData.boxscore.teams.home.teamStats.teamSkaterStats!!,
-                                                response.body()!!.liveData.boxscore.teams.away.teamStats.teamSkaterStats!!)
+                        onSuccess(
+                            GameData(
+                                response.body()!!.gamePk,
+                                response.body()!!.gameData.status!!.codedGameState!!,
+                                response.body()!!.gameData.datetime!!.dateTime!!,
+                                response.body()!!.gameData.venue!!.name!!,
+                                response.body()!!.gameData.status!!.detailedState!!,
+                                GameDataTeam(
+                                    response.body()!!.gameData.teams!!.home!!.id,
+                                    response.body()!!.gameData.teams!!.home!!.name,
+                                    response.body()!!.liveData.linescore.teams.home.goals
+                                ),
+                                GameDataTeam(
+                                    response.body()!!.gameData.teams!!.away!!.id,
+                                    response.body()!!.gameData.teams!!.away!!.name,
+                                    response.body()!!.liveData.linescore.teams.away.goals
+                                ),
+                                Helper.parsePlays(plays, response.body()!!.gameData.teams!!.home!!.name!!),
+                                Helper.parseTeamsPlayers(boxScore),
+                                Helper.parseStats(
+                                    response.body()!!.liveData.boxscore.teams.home.teamStats.teamSkaterStats!!,
+                                    response.body()!!.liveData.boxscore.teams.away.teamStats.teamSkaterStats!!
+                                )
+                            )
                         )
-                    )
-
+                    } else {
+                        onError("Couldn't load teams data")
+                    }
                 } else {
                     onError(response.errorBody()?.string() ?: "Unknown error")
                 }
@@ -120,10 +131,11 @@ fun searchGame(api: ScheduleApi,
 }
 
 fun searchPreviewData(api: ScheduleApi,
-                      teams: String,
+                      home: Int,
+                      away: Int,
                       onSuccess: (schedule: GamePreviewData)->Unit,
                       onError: (error: String)-> Unit){
-    api.searchPreviewData(teams, "team.stats", "points,goals,assists,shots,hits").enqueue(
+    api.searchPreviewData("$home,$away", "team.stats", "points,goals,assists,shots,hits").enqueue(
         object : Callback<GamePreviewResponse>{
             override fun onFailure(call: Call<GamePreviewResponse>, t: Throwable) {
                 onError(t.message ?: "unknown error")
@@ -133,19 +145,38 @@ fun searchPreviewData(api: ScheduleApi,
                 call: Call<GamePreviewResponse>,
                 response: Response<GamePreviewResponse>) {
 
-                if(response.isSuccessful){
-
-                    onSuccess(GamePreviewData(Helper.parsePreviewStats(
-                        response.body()!!.teams[0].teamStats[0].splits[0].stat,
-                        response.body()!!.teams[1].teamStats[0].splits[0].stat,
-                        previewStats),
-                        Helper.parsePreviewStats(
-                            response.body()!!.teams[0].teamStats[0].splits[1].stat,
-                            response.body()!!.teams[1].teamStats[0].splits[1].stat,
-                            previewRanks),
-                        Helper.parseTeamLeaders(response.body()!!.teams[0].teamLeaders, response.body()!!.teams[1].teamLeaders)
-                        ))
-
+                if(response.isSuccessful) {
+                    if (response.body()!!.teams[0].teamLeaders != null && response.body()!!.teams[1].teamLeaders != null &&
+                        response.body()!!.teams[0].teamStats != null && response.body()!!.teams[1].teamStats != null){
+                        val homeResponse: PreviewResponseTeam
+                        val awayResponse: PreviewResponseTeam
+                        if(home == response.body()!!.teams[0].id){
+                            homeResponse = response.body()!!.teams[0]
+                            awayResponse = response.body()!!.teams[1]
+                        } else {
+                            homeResponse = response.body()!!.teams[1]
+                            awayResponse = response.body()!!.teams[0]
+                        }
+                        onSuccess(
+                            GamePreviewData(
+                                Helper.parsePreviewStats(
+                                    homeResponse.teamStats[0].splits[0].stat,
+                                    awayResponse.teamStats[0].splits[0].stat,
+                                    previewStats
+                                ),
+                                Helper.parsePreviewStats(
+                                    homeResponse.teamStats[0].splits[1].stat,
+                                    awayResponse.teamStats[0].splits[1].stat,
+                                    previewRanks
+                                ),
+                                Helper.parseTeamLeaders(
+                                    homeResponse.teamLeaders,
+                                    awayResponse.teamLeaders
+                                )
+                            )
+                        )
+                }else {
+                        onError("Couldn't load teams data") }
                 } else {
                     onError(response.errorBody()?.string() ?: "Unknown error")
                 }

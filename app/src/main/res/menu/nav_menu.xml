@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <!--
-    <item
-            android:id="@id/team_dest"
-            android:icon="@drawable/ic_supervisor_account_black_24dp"
-            android:title="@string/team_name" />
-
-    <item
-            android:id="@id/standings_dest"
-            android:icon="@drawable/ic_format_list_numbered_black_24dp"
-            android:title="@string/standings_name" />-->
-
     <item
             android:id="@id/main_dest"
             android:icon="@drawable/ic_date_range_black_24dp"
@@ -20,4 +9,14 @@
             android:id="@id/player_dest"
             android:icon="@drawable/ic_person_black_24dp"
             android:title="@string/player_name" />
+
+    <item
+            android:id="@id/team_dest"
+            android:icon="@drawable/ic_supervisor_account_black_24dp"
+            android:title="@string/team_name" />
+
+    <item
+            android:id="@id/standings_dest"
+            android:icon="@drawable/ic_format_list_numbered_black_24dp"
+            android:title="@string/standings_name" />
 </menu>
