@@ -1,10 +1,8 @@
-package com.jurielonen.nhlapp30.schedule.ui
+package com.jurielonen.nhlapp30.schedule.fragments
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.jurielonen.nhlapp30.schedule.data.GameRepository
-import com.jurielonen.nhlapp30.schedule.fragments.GameFinalViewModel
 
 class GameViewModelFactory(private val repository: GameRepository) : ViewModelProvider.Factory {
 

@@ -1,8 +1,7 @@
 package com.jurielonen.nhlapp30.schedule.db
 
 import android.util.Log
-import androidx.paging.DataSource
-import com.jurielonen.nhlapp30.schedule.fragments.model.GameData
+import androidx.lifecycle.LiveData
 import com.jurielonen.nhlapp30.schedule.model.Games
 import java.util.concurrent.Executor
 
@@ -17,8 +16,12 @@ class ScheduleLocalCache(private val scheduleDao: ScheduleDao, private val ioExe
     }
 
 
-    fun reposByDate(date: String): DataSource.Factory<Int, Games> {
+    fun reposByDate(date: String): LiveData<List<Games>> {
         return scheduleDao.reposByDate(date)
+    }
+
+    fun checkByDate(date: String): List<Games> {
+        return scheduleDao.checkByDate(date)
     }
 
     fun deleteByDate(date: String){

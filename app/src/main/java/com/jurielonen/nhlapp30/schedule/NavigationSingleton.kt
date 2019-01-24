@@ -2,6 +2,7 @@ package com.jurielonen.nhlapp30.schedule
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.navigation.NavController
 import com.jurielonen.nhlapp30.R
@@ -10,7 +11,6 @@ import com.jurielonen.nhlapp30.schedule.model.Games
 class NavigationSingleton {
 
     private lateinit var navController: NavController
-    private lateinit var mContext: Context
 
     companion object {
         @Volatile
@@ -24,9 +24,8 @@ class NavigationSingleton {
             }
     }
 
-    fun setNavController(nav: NavController, mContext: Context){
+    fun setNavController(nav: NavController){
         navController = nav
-        this.mContext = mContext
     }
 
     fun statsClicked(game: Games){
@@ -43,7 +42,8 @@ class NavigationSingleton {
                 args.putString("HOME_RECORD", game.homeStat())
                 args.putString("AWAY_RECORD", game.awayStat())
                 args.putString("STATE", game.status.detailedState)
-                Toast.makeText(mContext, "This view is not yet made:(", Toast.LENGTH_SHORT).show()
+                Log.d("Navigation", "game preview")
+                navController.navigate(R.id.action_schedule_dest_to_game_preview_dest, args)
             }
 
             3->{
@@ -54,7 +54,8 @@ class NavigationSingleton {
                 args.putString("HOME_RECORD", game.homeStat())
                 args.putString("AWAY_RECORD", game.awayStat())
                 args.putString("STATE", game.status.detailedState)
-                Toast.makeText(mContext, "This view is not yet made:(", Toast.LENGTH_SHORT).show()
+                Log.d("Navigation", "game live")
+                navController.navigate(R.id.action_schedule_dest_to_game_final_dest, args)
             }
             7->{
                 args.putInt("SELECTED_GAME", game.gamePk)
@@ -66,10 +67,11 @@ class NavigationSingleton {
                 args.putString("STATE", game.status.detailedState)
                 args.putString("SELECTED_RECAP", game.urlRecap)
                 args.putString("SELECTED_EXTENDED", game.urlExtended)
+                Log.d("Navigation", "game final")
                 navController.navigate(R.id.action_schedule_dest_to_game_final_dest, args)
             }
             else->{
-                Toast.makeText(mContext, "This view is not yet made:(", Toast.LENGTH_SHORT).show()
+                Log.d("Navigation", "View not made yet")
             }
         }
     }

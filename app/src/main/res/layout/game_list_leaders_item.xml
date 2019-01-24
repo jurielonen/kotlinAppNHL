@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="rank" type="String"/>
+        <variable name="url" type="String"/>
+        <variable name="leader" type="com.jurielonen.nhlapp30.schedule.api.PreviewResponseLeadersPlayers"/>
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/background">
+
+        <TextView
+                android:id="@+id/gamePreviewLeadersColumnRankText"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="2dp"
+                android:text="@{rank}"
+                android:textColor="@color/gamePlaysText"
+                android:textSize="@dimen/leaders_text_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginLeft="16dp"/>
+
+        <TextView
+                android:id="@+id/gamePreviewLeadersColumnNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="2dp"
+                android:text="@{leader.person.fullName}"
+                android:textColor="@color/gamePlaysText"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textSize="@dimen/leaders_text_size"
+                app:layout_constraintStart_toEndOf="@+id/gamePreviewLeadersColumnImageView"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"/>
+
+        <TextView
+                android:id="@+id/gamePreviewLeadersColumnValueText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="2dp"
+                android:text="@{leader.value}"
+                android:textColor="@color/gamePlaysText"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textSize="@dimen/leaders_text_size"
+                android:layout_marginRight="16dp"/>
+
+        <ImageView
+                android:id="@+id/gamePreviewLeadersColumnImageView"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="2dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/gamePreviewLeadersColumnRankText"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@android:color/transparent"
+                android:layout_marginLeft="5dp"
+                android:contentDescription="@string/home_image"
+                app:imageUrl="@{url}"
+                app:error="@{leader.team.name}"/>
+
+        <TextView
+                android:id="@+id/gamePreviewLeadersColumnTeamText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{leader.team.name}"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="2dp"
+                app:layout_constraintVertical_bias="0.523"
+                app:layout_constraintStart_toEndOf="@+id/gamePreviewLeadersColumnNameText"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
+                android:textColor="@color/leaders_sub_text_color"
+                android:textSize="@dimen/leaders_sub_text_size"
+                android:textStyle="italic"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

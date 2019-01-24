@@ -8,10 +8,14 @@
     <color name="white">#ffffff</color>
     <color name="background">#E5E7E9</color>
 
+    <color name="goal">#E8FFE2</color>
+    <color name="penalty">#FFE6E6</color>
 
     <color name="gameText">#000000</color>
     <color name="gameBackground">#ffffff</color>
 
+    <color name="leaders_text_color">#000000</color>
+    <color name="leaders_sub_text_color">#585858</color>
     <color name="gamePlaysText">#000000</color>
     <color name="gamePlaysBackground">#ffffff</color>
     <color name="gamesStatsText">#000000</color>

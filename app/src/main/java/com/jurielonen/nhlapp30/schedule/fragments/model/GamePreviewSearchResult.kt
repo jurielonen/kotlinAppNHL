@@ -1,10 +1,9 @@
 package com.jurielonen.nhlapp30.schedule.fragments.model
 
 import androidx.lifecycle.LiveData
-import androidx.paging.PagedList
 
-class GameSearchResult (
-    val data: LiveData<GameData>,
+class GamePreviewSearchResult (
+    val data: LiveData<GamePreviewData>,
     val networkErrors: LiveData<String>,
     val isInProgress: LiveData<Boolean>
     )

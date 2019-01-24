@@ -9,16 +9,18 @@ class GamePlayersViewHolder(private val binding: GameListSkaterStatsBinding): Re
     fun bind(p: GamePlayer){
         with(binding){
             name = p.fullName
-            toi = p.stats!!.timeOnIce
-            g = p.stats.goals.toString()
-            a = p.stats.assists.toString()
-            pm = p.stats.plusMinus.toString()
-            s = p.stats.shots.toString()
-            b = p.stats.blocked.toString()
-            pim = p.stats.penaltyMinutes.toString()
-            h = p.stats.hits.toString()
-            tv = p.stats.takeaways.toString()
-            gv = p.stats.giveaways.toString()
+            with(p.stats) {
+                toi = this!!.timeOnIce
+                g = goals.toString()
+                a = assists.toString()
+                pm = plusMinus.toString()
+                s = shots.toString()
+                b = blocked.toString()
+                pim = penaltyMinutes.toString()
+                h = hits.toString()
+                tv = takeaways.toString()
+                gv = giveaways.toString()
+            }
             executePendingBindings()
         }
     }

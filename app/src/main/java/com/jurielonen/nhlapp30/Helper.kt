@@ -1,100 +1,131 @@
 package com.jurielonen.nhlapp30
 
-import android.view.View
 import android.widget.ImageView
+import com.jurielonen.nhlapp30.schedule.api.*
 import com.jurielonen.nhlapp30.schedule.fragments.model.GameGoalie
 import com.jurielonen.nhlapp30.schedule.fragments.model.GamePlayer
 import com.jurielonen.nhlapp30.schedule.fragments.model.GamePlays
+import com.jurielonen.nhlapp30.schedule.fragments.model.Stats
 import com.jurielonen.nhlapp30.schedule.fragments.recycler_view_adapters.list.ListGoaliePlayerHeader
 import com.jurielonen.nhlapp30.schedule.fragments.recycler_view_adapters.list.ListPlayerHeader
 import com.jurielonen.nhlapp30.schedule.fragments.recycler_view_adapters.list.ListPlaysHeader
 import com.jurielonen.nhlapp30.schedule.fragments.recycler_view_adapters.list.ViewType
-import com.jurielonen.nhlapp30.schedule.model.Games
 
 object Helper {
 
-    fun chooseImage(team: String, image: ImageView) {
-        when (team) {
-            "Anaheim Ducks" -> image.setImageResource(R.drawable.logo_ana)
+    fun chooseImage(team: String): Int {
+        return when (team) {
+            "Anaheim Ducks" -> R.drawable.logo_ana
 
-            "Arizona Coyotes" -> image.setImageResource(R.drawable.logo_ari)
+            "Arizona Coyotes" -> R.drawable.logo_ari
 
-            "Boston Bruins" -> image.setImageResource(R.drawable.logo_bos)
+            "Boston Bruins" -> R.drawable.logo_bos
 
-            "Buffalo Sabres" -> image.setImageResource(R.drawable.logo_buf)
+            "Buffalo Sabres" -> R.drawable.logo_buf
 
-            "Carolina Hurricanes" -> image.setImageResource(R.drawable.logo_car)
+            "Carolina Hurricanes" -> R.drawable.logo_car
 
-            "Columbus Blue Jackets" -> image.setImageResource(R.drawable.logo_cbj)
+            "Columbus Blue Jackets" -> R.drawable.logo_cbj
 
-            "Calgary Flames" -> image.setImageResource(R.drawable.logo_cgy)
+            "Calgary Flames" -> R.drawable.logo_cgy
 
-            "Chicago Blackhawks" -> image.setImageResource(R.drawable.logo_chi)
+            "Chicago Blackhawks" -> R.drawable.logo_chi
 
-            "Colorado Avalanche" -> image.setImageResource(R.drawable.logo_col)
+            "Colorado Avalanche" -> R.drawable.logo_col
 
-            "Dallas Stars" -> image.setImageResource(R.drawable.logo_dal)
+            "Dallas Stars" -> R.drawable.logo_dal
 
-            "Detroit Red Wings" -> image.setImageResource(R.drawable.logo_det)
+            "Detroit Red Wings" -> R.drawable.logo_det
 
-            "Edmonton Oilers" -> image.setImageResource(R.drawable.logo_edm)
+            "Edmonton Oilers" -> R.drawable.logo_edm
 
-            "Florida Panthers" -> image.setImageResource(R.drawable.logo_fla)
+            "Florida Panthers" -> R.drawable.logo_fla
 
-            "Los Angeles Kings" -> image.setImageResource(R.drawable.logo_la)
+            "Los Angeles Kings" -> R.drawable.logo_la
 
-            "Minnesota Wild" -> image.setImageResource(R.drawable.logo_min)
+            "Minnesota Wild" -> R.drawable.logo_min
 
-            "Montréal Canadiens" -> image.setImageResource(R.drawable.logo_mtl)
+            "Montréal Canadiens" -> R.drawable.logo_mtl
 
-            "Nashville Predators" -> image.setImageResource(R.drawable.logo_nas)
+            "Nashville Predators" -> R.drawable.logo_nas
 
-            "New Jersey Devils" -> image.setImageResource(R.drawable.logo_nj)
+            "New Jersey Devils" -> R.drawable.logo_nj
 
-            "New York Islanders" -> image.setImageResource(R.drawable.logo_nyi)
+            "New York Islanders" -> R.drawable.logo_nyi
 
-            "New York Rangers" -> image.setImageResource(R.drawable.logo_nyr)
+            "New York Rangers" -> R.drawable.logo_nyr
 
-            "Ottawa Senators" -> image.setImageResource(R.drawable.logo_ott)
+            "Ottawa Senators" -> R.drawable.logo_ott
 
-            "Philadelphia Flyers" -> image.setImageResource(R.drawable.logo_phi)
+            "Philadelphia Flyers" -> R.drawable.logo_phi
 
-            "Pittsburgh Penguins" -> image.setImageResource(R.drawable.logo_pit)
+            "Pittsburgh Penguins" -> R.drawable.logo_pit
 
-            "San Jose Sharks" -> image.setImageResource(R.drawable.logo_sj)
+            "San Jose Sharks" -> R.drawable.logo_sj
 
-            "St. Louis Blues" -> image.setImageResource(R.drawable.logo_stl)
+            "St. Louis Blues" -> R.drawable.logo_stl
 
-            "Tampa Bay Lightning" -> image.setImageResource(R.drawable.logo_tb)
+            "Tampa Bay Lightning" -> R.drawable.logo_tb
 
-            "Toronto Maple Leafs" -> image.setImageResource(R.drawable.logo_tor)
+            "Toronto Maple Leafs" -> R.drawable.logo_tor
 
-            "Vancouver Canucks" -> image.setImageResource(R.drawable.logo_van)
+            "Vancouver Canucks" -> R.drawable.logo_van
 
-            "Vegas Golden Knights" -> image.setImageResource(R.drawable.logo_vgk)
+            "Vegas Golden Knights" -> R.drawable.logo_vgk
 
-            "Washington Capitals" -> image.setImageResource(R.drawable.logo_was)
+            "Washington Capitals" -> R.drawable.logo_was
 
-            "Winnipeg Jets" -> image.setImageResource(R.drawable.logo_wpg)
+            "Winnipeg Jets" -> R.drawable.logo_wpg
 
-            else -> image.setImageResource(R.drawable.right_arrow)
+            else -> R.drawable.right_arrow
         }
     }
 
-    fun formatPlays(plays: List<GamePlays>): List<ViewType>{
-        val a = plays as ArrayList
-        a.add(GamePlays("", "START", "", 0, 1, "00:00"))
-        a.add(GamePlays("", "START", "", 0, 2, "00:00"))
-        a.add(GamePlays("", "START", "", 0, 3, "00:00"))
+    fun parsePlays(plays: ResponsePlays, homeTeam: String): List<ViewType>{
+        val allPlays = plays.allPlays
+        val playsToGet = (plays.scoringPlays + plays.penaltyPlays)
+        playsToGet.sortedDescending()
 
-         return a.sortedWith(compareBy{it.time}).map {
-             when(it.event){
-             "START" -> ListPlaysHeader(it.time)
-             else -> it
-         } }
+        return formatPlays(playsToGet.map {
+            val x = allPlays[it]
+            GamePlays(x.team.name == homeTeam, x.team.name ,x.result.event, x.result.description, x.result.penaltyMinutes, x.about.period, x.about.periodTime)
+        })
     }
 
-    fun formatPlayers(homePlayers: List<GamePlayer>, homeGoalies: List<GameGoalie>, awayPlayers: List<GamePlayer>, awayGoalies: List<GameGoalie>): List<ViewType>{
+    private fun formatPlays(plays: List<GamePlays>): List<ViewType>{
+        val a = plays as ArrayList
+        a.add(GamePlays(false, "", "START", "", 0, 1, "00:00"))
+        a.add(GamePlays(false, "", "START", "", 0, 2, "00:00"))
+        a.add(GamePlays(false, "", "START", "", 0, 3, "00:00"))
+
+        return a.sortedWith(compareBy{it.time}).map {
+            when(it.event){
+                "START" -> ListPlaysHeader(it.time)
+                else -> it
+            } }
+    }
+
+    fun parseTeamsPlayers(teams: ResponseTeams): List<ViewType>{
+        return Helper.formatPlayers(parsePlayers(teams.home), parseGoalies(teams.home), parsePlayers(teams.away), parseGoalies(teams.away))
+    }
+
+    private fun parsePlayers(team: ResponseTeam): List<GamePlayer> {
+        val allPlayers = team.players
+        return (allPlayers.filterValues {it.stats.skaterStats != null}).map {
+            GamePlayer(it.value.person.id, it.value.person.fullName, it.value.position.code, it.value.position.name, it.value.stats.skaterStats)
+        }
+    }
+
+    private fun parseGoalies(team: ResponseTeam): List<GameGoalie> {
+        val allGoalies = team.players
+        return (allGoalies.filterValues { it.stats.goalieStats != null }).map{
+            GameGoalie(it.value.person.id, it.value.person.fullName, it.value.position.code, it.value.position.name, it.value.stats.goalieStats)
+        }
+
+
+    }
+
+    private fun formatPlayers(homePlayers: List<GamePlayer>, homeGoalies: List<GameGoalie>, awayPlayers: List<GamePlayer>, awayGoalies: List<GameGoalie>): List<ViewType>{
         val a = ArrayList<ViewType>()
         a.add(ListPlayerHeader())
         a.addAll(homePlayers)
@@ -107,4 +138,34 @@ object Helper {
         return a
     }
 
+    fun parseStats(home: ResponseGameTeamSkaterStats, away: ResponseGameTeamSkaterStats): List<Stats>{
+
+        return listOf(Stats(home.goals.toString(), away.goals.toString(), "Goals"),
+            Stats(home.pim.toString(), away.pim.toString(), "Penalty Min"),
+            Stats(home.shots.toString(), away.shots.toString(), "Shots"),
+            Stats(home.powerPlayPercentage.toString(), away.powerPlayPercentage.toString(), "Power Play Percentage"),
+            Stats(home.powerPlayGoals.toString(), away.powerPlayGoals.toString(), "Power Play Goals"),
+            Stats(home.powerPlayOpportunities.toString(), away.powerPlayOpportunities.toString(), "Power Play Oportunities"),
+            Stats(home.faceOffWinPercentage.toString(), away.faceOffWinPercentage.toString(), "Face Off Win Percentage"),
+            Stats(home.blocked.toString(), away.blocked.toString(), "Blocked Shots"),
+            Stats(home.takeaways.toString(), away.takeaways.toString(), "Takeaways"),
+            Stats(home.giveaways.toString(), away.giveaways.toString(), "Giveaways"),
+            Stats(home.hits.toString(), away.hits.toString(), "Hits"))
+    }
+
+    fun parsePreviewStats(home: Map<String, String>, away: Map<String, String>, stats: List<String>): List<Stats>{
+        return stats.mapIndexed { index, s ->
+            Stats(home.values.elementAt(index).toString(), away.values.elementAt(index).toString(), s)
+        }
+    }
+
+    fun parseTeamLeaders(home: List<PreviewResponseLeaders>, away: List<PreviewResponseLeaders>): List<PreviewResponseLeaders>{
+        val x = home.mapIndexed { index, it ->
+            PreviewResponseLeaders(it.leaderCategory, it.leaders + away[index].leaders)
+        }
+
+        return x.map {
+            PreviewResponseLeaders(it.leaderCategory, it.leaders.sortedWith(compareByDescending{ it.value.toInt()}))
+        }
+    }
 }

@@ -23,6 +23,14 @@
                 app:exitAnim="@anim/slide_out_left"
                 app:popEnterAnim="@anim/slide_in_left"
                 app:popExitAnim="@anim/slide_out_right"/>
+
+        <action android:id="@+id/action_schedule_dest_to_game_preview_dest"
+                app:destination="@id/game_preview_dest"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right"/>
+
     </fragment>
 
     <fragment android:id="@+id/video_dest"
@@ -38,5 +46,10 @@
     <fragment android:id="@+id/game_final_dest"
               android:name="com.jurielonen.nhlapp30.schedule.fragments.GameFinalFragment"
               android:label="GameFinalFragment"
+              tools:layout="@layout/game_final_fragment"/>
+
+    <fragment android:id="@+id/game_preview_dest"
+              android:name="com.jurielonen.nhlapp30.schedule.fragments.GamePreviewFragment"
+              android:label="GamePreviewFragment"
               tools:layout="@layout/game_final_fragment"/>
 </navigation>

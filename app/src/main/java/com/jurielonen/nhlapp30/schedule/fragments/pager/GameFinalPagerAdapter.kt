@@ -1,4 +1,4 @@
-package com.jurielonen.nhlapp30.schedule.fragments.game_final
+package com.jurielonen.nhlapp30.schedule.fragments.pager
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,12 +6,12 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.jurielonen.nhlapp30.schedule.fragments.model.GameData
 
-class GameFinalPagerAdapter (fm: FragmentManager, private val count: Int, private val headers: Array<String>, private val game: GameData) :
+class GameFinalPagerAdapter (fm: FragmentManager, private val headers: Array<String>, private val game: GameData) :
     FragmentStatePagerAdapter(fm) {
 
     private val ARG_OBJECT = "object"
 
-    override fun getCount(): Int  = 2
+    override fun getCount(): Int  = headers.size
 
     override fun getItem(i: Int): Fragment {
         val fragment = GameFinalPagerFragment()

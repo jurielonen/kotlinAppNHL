@@ -18,7 +18,7 @@
     <string name="calendar_button_default">1.1.2019</string>
 
     <string name="loading">Loading</string>
-    <string name="no_results">No results 😓</string>
+    <string name="no_results">No games today 😓</string>
     <string name="edit_text_hint">yyyy-mm-dd</string>
 
 
@@ -42,28 +42,15 @@
 
 
     <string-array name="game_final_fragment">
-        <!--<item>stats</item>-->
+        <item>stats</item>
         <item>plays</item>
         <item>players</item>
     </string-array>
 
     <string-array name="game_preview_fragment">
         <item>stats</item>
+        <item>ranks</item>
         <item>Leaders</item>
-    </string-array>
-
-    <string-array name="game_final_data_names">
-        <item>goals</item>
-        <item>pim</item>
-        <item>shots</item>
-        <item>powerPlayPercentage</item>
-        <item>powerPlayGoals</item>
-        <item>powerPlayOpportunities</item>
-        <item>faceOffWinPercentage</item>
-        <item>blocked</item>
-        <item>takeaways</item>
-        <item>giveaways</item>
-        <item>hits</item>
     </string-array>
 
     <string-array name="game_final_stat_names">
@@ -78,37 +65,6 @@
         <item>Takeaways</item>
         <item>Giveaways</item>
         <item>Hits</item>
-    </string-array>
-
-    <string-array name="game_preview_data_names">
-        <item>gamesPlayed</item>
-        <item>wins</item>
-        <item>losses</item>
-        <item>ot</item>
-        <item>pts</item>
-        <item>ptPctg</item>
-        <item>goalsPerGame</item>
-        <item>goalsAgainstPerGame</item>
-        <item>evGGARatio</item>
-        <item>powerPlayPercentage</item>
-        <item>powerPlayGoals</item>
-        <item>powerPlayGoalsAgainst</item>
-        <item>powerPlayOpportunities</item>
-        <item>penaltyKillPercentage</item>
-        <item>shotsPerGame</item>
-        <item>shotsAllowed</item>
-        <item>winScoreFirst</item>
-        <item>winOppScoreFirst</item>
-        <item>winLeadFirstPer</item>
-        <item>winLeadSecondPer</item>
-        <item>winOutshootOpp</item>
-        <item>winOutshotByOpp</item>
-        <item>faceOffsTaken</item>
-        <item>faceOffsWon</item>
-        <item>faceOffsLost</item>
-        <item>faceOffWinPercentage</item>
-        <item>shootingPctg</item>
-        <item>savePctg</item>
     </string-array>
 
     <string-array name="game_preview_stat_names">

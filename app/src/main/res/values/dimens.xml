@@ -4,5 +4,7 @@
     <dimen name="game_score_size">40sp</dimen>
     <dimen name="game_text_size">10sp</dimen>
     <dimen name="repo_name_size">24sp</dimen>
+    <dimen name="leaders_text_size">14sp</dimen>
+    <dimen name="leaders_sub_text_size">11sp</dimen>
 
 </resources>

@@ -22,15 +22,21 @@ class ScheduleViewModel(private val repository: ScheduleRepository): ViewModel()
         repository.search(it)
     }
 
-    val schedule: LiveData<PagedList<Games>> = Transformations.switchMap(scheduleResult
+    val schedule: LiveData<List<Games>> = Transformations.switchMap(scheduleResult
     ) { it ->
         Log.d("ScheduleViewModel", "list: ${it.data.value} ")
         it.data }
 
     val networkErrors: LiveData<String> = Transformations.switchMap(scheduleResult
     ) { it ->
-        Log.d("ScheduleViewModel", "list: ${it.data.value} ")
+        Log.d("ScheduleViewModel", "networkerrors: ${it.networkErrors} ")
         it.networkErrors }
+
+    val isRequestInProgress: LiveData<Boolean> = Transformations.switchMap(scheduleResult){
+        it ->
+        Log.d("ScheduleViewModel", "progress: ${it.isInProgress} ")
+        it.isInProgress
+    }
 
     fun searchRepo(queryString: String) {
         queryLiveData.postValue(queryString)
@@ -39,7 +45,5 @@ class ScheduleViewModel(private val repository: ScheduleRepository): ViewModel()
 
     fun refresh(){
         queryLiveData.postValue("R${queryLiveData.value}")
-
     }
-    fun lastQueryValue(): String? = queryLiveData.value
 }

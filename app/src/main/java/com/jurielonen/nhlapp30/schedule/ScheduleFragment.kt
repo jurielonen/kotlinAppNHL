@@ -23,10 +23,12 @@ class ScheduleFragment: Fragment() {
 
     private lateinit var viewModel: ScheduleViewModel
     private lateinit var adapter: GameAdapter
+    private var isInProgess = true
 
     private val dfAPI = SimpleDateFormat("yyyy-MM-dd")
     private val dfShow = SimpleDateFormat("dd.MM.yyyy")
     private val calendar = Calendar.getInstance()
+    private var listSize = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = ScheduleFragmentBinding.inflate(inflater, container, false)
@@ -57,15 +59,17 @@ class ScheduleFragment: Fragment() {
     }
 
     private fun initAdapter() {
-        viewModel.schedule.observe(this, Observer<PagedList<Games>> {
+        viewModel.schedule.observe(this, Observer<List<Games>> {
             Log.d("Activity", "list: ${it?.size}")
-            showEmptyList(it?.size == 0)
+            listSize = it.size
             adapter.submitList(it)
-            if(scheduleSwipeRefresh.isRefreshing)
+            if (scheduleSwipeRefresh.isRefreshing)
                 scheduleSwipeRefresh.isRefreshing = false
+
         })
         viewModel.networkErrors.observe(this, Observer<String> {
             Toast.makeText(context, "\uD83D\uDE28 Wooops ${it}", Toast.LENGTH_LONG).show()
+            scheduleProgressBar.visibility = View.GONE
             if(scheduleSwipeRefresh.isRefreshing)
                 scheduleSwipeRefresh.isRefreshing = false
         })
@@ -73,6 +77,19 @@ class ScheduleFragment: Fragment() {
         scheduleSwipeRefresh.setOnRefreshListener {
             viewModel.refresh()
         }
+
+        viewModel.isRequestInProgress.observe(this, Observer<Boolean> {
+            isInProgess = it
+            if(it){
+                scheduleRecyclerView.visibility = View.GONE
+                emptyList.visibility = View.GONE
+                scheduleProgressBar.visibility = View.VISIBLE
+            }
+            else{
+                scheduleProgressBar.visibility = View.GONE
+                showEmptyList(listSize == 0)
+            }
+        })
     }
 
     private fun initSearch() {

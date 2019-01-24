@@ -1,8 +1,10 @@
 package com.jurielonen.nhlapp30.schedule.api
 
-import android.util.Log
-import com.google.gson.Gson
+import com.jurielonen.nhlapp30.Helper
 import com.jurielonen.nhlapp30.schedule.fragments.model.*
+import com.jurielonen.nhlapp30.schedule.fragments.recycler_view_adapters.list.finalStats
+import com.jurielonen.nhlapp30.schedule.fragments.recycler_view_adapters.list.previewRanks
+import com.jurielonen.nhlapp30.schedule.fragments.recycler_view_adapters.list.previewStats
 import com.jurielonen.nhlapp30.schedule.model.Games
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -14,6 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import java.util.concurrent.Executors
 
 
 fun searchSchedule(api: ScheduleApi,
@@ -53,7 +56,8 @@ fun searchSchedule(api: ScheduleApi,
                         }
 
                         onSuccess(games)
-                    }
+                    }else
+                        onError("No games error")
                 } else {
                     onError(response.errorBody()?.string() ?: "Unknown error")
                 }
@@ -100,8 +104,10 @@ fun searchGame(api: ScheduleApi,
                                 response.body()!!.gameData.teams!!.away!!.id,
                                 response.body()!!.gameData.teams!!.away!!.name,
                                 response.body()!!.liveData.linescore.teams.away.goals),
-                            parsePlays(plays),
-                            parseTeams(boxScore)
+                            Helper.parsePlays(plays, response.body()!!.gameData.teams!!.home!!.name!!),
+                            Helper.parseTeamsPlayers(boxScore),
+                            Helper.parseStats(response.body()!!.liveData.boxscore.teams.home.teamStats.teamSkaterStats!!,
+                                                response.body()!!.liveData.boxscore.teams.away.teamStats.teamSkaterStats!!)
                         )
                     )
 
@@ -113,52 +119,40 @@ fun searchGame(api: ScheduleApi,
     )
 }
 
-private fun parsePlays(plays: ResponsePlays): List<GamePlays>{
-    val allPlays = plays.allPlays
-    val playsToGet = (plays.scoringPlays + plays.penaltyPlays)
-    playsToGet.sortedDescending()
-    return playsToGet.map {
-        val x = allPlays[it]
-        GamePlays(x.team.name ,x.result.event, x.result.description, x.result.penaltyMinutes, x.about.period, x.about.periodTime)
-    }
-}
+fun searchPreviewData(api: ScheduleApi,
+                      teams: String,
+                      onSuccess: (schedule: GamePreviewData)->Unit,
+                      onError: (error: String)-> Unit){
+    api.searchPreviewData(teams, "team.stats", "points,goals,assists,shots,hits").enqueue(
+        object : Callback<GamePreviewResponse>{
+            override fun onFailure(call: Call<GamePreviewResponse>, t: Throwable) {
+                onError(t.message ?: "unknown error")
+            }
 
-private fun parseTeams(teams: ResponseTeams): GameBoxScore{
+            override fun onResponse(
+                call: Call<GamePreviewResponse>,
+                response: Response<GamePreviewResponse>) {
 
-    return GameBoxScore(BoxScoreTeams(
-        BoxScoreTeamHome(teams.home.team.id, teams.home.team.name, teams.home.teamStats, parseGoalies(teams.home), parsePlayers(teams.home)),
-        BoxScoreTeamAway(teams.away.team.id, teams.away.team.name, teams.away.teamStats, parseGoalies(teams.away), parsePlayers(teams.away))))
-}
+                if(response.isSuccessful){
 
-private fun parsePlayers(team: ResponseTeam): List<GamePlayer> {
-    val allPlayers = team.players
-    return team.skaters.map {
-        var x = GamePlayer()
-        for (a in allPlayers) {
-            if(a.key == "ID$it") {
-                x = GamePlayer(a.value.person.id, a.value.person.fullName, a.value.position.code, a.value.position.name, a.value.stats.skaterStats)
-                break
+                    onSuccess(GamePreviewData(Helper.parsePreviewStats(
+                        response.body()!!.teams[0].teamStats[0].splits[0].stat,
+                        response.body()!!.teams[1].teamStats[0].splits[0].stat,
+                        previewStats),
+                        Helper.parsePreviewStats(
+                            response.body()!!.teams[0].teamStats[0].splits[1].stat,
+                            response.body()!!.teams[1].teamStats[0].splits[1].stat,
+                            previewRanks),
+                        Helper.parseTeamLeaders(response.body()!!.teams[0].teamLeaders, response.body()!!.teams[1].teamLeaders)
+                        ))
+
+                } else {
+                    onError(response.errorBody()?.string() ?: "Unknown error")
+                }
             }
         }
-        x
-    }
+    )
 }
-
-private fun parseGoalies(team: ResponseTeam): List<GameGoalie> {
-    val allPlayers = team.players
-    return team.goalies.map {
-        var x = GameGoalie()
-        for (a in allPlayers) {
-            if (a.key == "ID$it") {
-                x = GameGoalie(it, a.value.person.fullName, a.value.position.code, a.value.position.name, a.value.stats.goalieStats)
-                break
-            }
-        }
-        x
-    }
-
-}
-
 interface ScheduleApi {
 
     @GET("api/v1/schedule")
@@ -170,6 +164,10 @@ interface ScheduleApi {
     @GET("api/v1/game/{id}/feed/live")
     fun searchGameData(@Path("id") id: String): Call<GameResponse>
 
+    @GET("api/v1/teams")
+    fun searchPreviewData(@Query("teamId") teams: String,
+                          @Query("expand") stats: String,
+                          @Query("leaderCategories") category: String): Call<GamePreviewResponse>
     companion object {
         private const val BASE_URL = "https://statsapi.web.nhl.com/"
 
@@ -182,6 +180,7 @@ interface ScheduleApi {
                 .build()
             return Retrofit.Builder()
                 .baseUrl(BASE_URL)
+                .callbackExecutor(Executors.newSingleThreadExecutor())
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

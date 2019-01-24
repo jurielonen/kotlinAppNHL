@@ -21,7 +21,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/scheduleAwayLogoImage"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:setImage="@{gameData.teams.home.details.name}"
+                app:load_image="@{gameData.teams.home.details.name}"
                 android:layout_alignLeft="@+id/scheduleVenueText"
                 android:contentDescription="@string/home_image"/>
 
@@ -38,7 +38,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/scheduleHomeLogoImage"
                 app:layout_constraintTop_toTopOf="parent"
-                app:setImage="@{gameData.teams.away.details.name}"
+                app:load_image="@{gameData.teams.away.details.name}"
                 android:layout_alignParentRight="true"
                 android:contentDescription="@string/away_image"/>
 

@@ -8,7 +8,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@{play.goal ? @drawable/play_box_goal_layout : @drawable/play_box_penalty_layout}"
+            app:set_constraint="@{play}">
 
         <TextView
                 android:id="@+id/playsPeriodText"
@@ -58,14 +61,17 @@
         <ImageView
                 android:id="@+id/playListImageView"
                 android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
                 android:layout_marginBottom="2dp"
                 android:layout_marginTop="2dp"
-                app:setImage="@{play.team}"
+                app:load_image="@{play.team}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@android:color/transparent"/>
+                app:srcCompat="@android:color/transparent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:contentDescription="@string/home_image"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -3,13 +3,13 @@ package com.jurielonen.nhlapp30.schedule.data
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.jurielonen.nhlapp30.schedule.api.ScheduleApi
-import com.jurielonen.nhlapp30.schedule.api.searchGame
-import com.jurielonen.nhlapp30.schedule.fragments.model.GameData
-import com.jurielonen.nhlapp30.schedule.fragments.model.GameSearchResult
+import com.jurielonen.nhlapp30.schedule.api.searchPreviewData
+import com.jurielonen.nhlapp30.schedule.fragments.model.GamePreviewData
+import com.jurielonen.nhlapp30.schedule.fragments.model.GamePreviewSearchResult
 
-class GameRepository(private val api: ScheduleApi)
+class GamePreviewGetter(private val api: ScheduleApi)
 {
-    fun search(query: String): GameSearchResult {
+    fun search(query: String): GamePreviewSearchResult {
         Log.d("GameRepository", "New query: $query")
 
         val isRequestInProgress = MutableLiveData<Boolean>()
@@ -17,9 +17,9 @@ class GameRepository(private val api: ScheduleApi)
 
         val networkErrors = MutableLiveData<String>()
 
-        val data = MutableLiveData<GameData>()
+        val data = MutableLiveData<GamePreviewData>()
 
-        searchGame(api, query, { game ->
+        searchPreviewData(api, query, { game ->
             isRequestInProgress.postValue(false)
             data.postValue(game)
         }, { error ->
@@ -27,6 +27,6 @@ class GameRepository(private val api: ScheduleApi)
             networkErrors.postValue(error)
         })
 
-        return GameSearchResult(data, networkErrors, isRequestInProgress)
+        return GamePreviewSearchResult(data, networkErrors, isRequestInProgress)
     }
 }

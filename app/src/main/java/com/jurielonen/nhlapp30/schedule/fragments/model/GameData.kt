@@ -11,28 +11,18 @@ import com.jurielonen.nhlapp30.schedule.model.Status
 import com.jurielonen.nhlapp30.schedule.model.Venue
 
 
-@TypeConverters(PlayerConverter::class, GoalieConverter::class, PlayConverter::class)
-@Entity(tableName = "single_game_data",
-    foreignKeys = [ForeignKey(
-        entity = Games::class,
-        parentColumns = arrayOf("gamePk"),
-        childColumns = arrayOf("gamePk"),
-        onDelete = CASCADE)])
+
 data class GameData(
-    @PrimaryKey
     val gamePk: Int,
     val status: Int,
     val dateTime: String,
     val venue: String,
     val state: String,
-    @Embedded(prefix = "home_")
     val home: GameDataTeam? = GameDataTeam(),
-    @Embedded(prefix = "away_")
     val away: GameDataTeam? = GameDataTeam(),
-
-    val plays: List<GamePlays>? = emptyList(),
-    @Embedded
-    val boxScore: GameBoxScore? = GameBoxScore()
+    val plays: List<ViewType> = emptyList(),
+    val players: List<ViewType> = emptyList(),
+    val stats: List<Stats> = emptyList()
 )
 
 data class GameDataTeam(
@@ -41,8 +31,8 @@ data class GameDataTeam(
     val goals: Int = 0
 )
 
-@Entity
 data class GamePlays(
+    val homeTeam: Boolean,
     val team: String,
     val event: String,
     val description: String,
@@ -52,39 +42,9 @@ data class GamePlays(
 ): ViewType{
     override fun getViewType() = PlaysConstant.ITEM
     val time = (Integer.toString(period) + periodTime.replace(":", "")).toInt()
+    val goal = event == "Goal"
 }
 
-data class GameBoxScore(
-    @Embedded(prefix = "teams_box_")
-    val teams: BoxScoreTeams? = BoxScoreTeams()
-)
-
-data class BoxScoreTeams(
-    @Embedded(prefix = "home_box_")
-    val home: BoxScoreTeamHome? = BoxScoreTeamHome(),
-    @Embedded(prefix = "away_box_")
-    val away: BoxScoreTeamAway? = BoxScoreTeamAway()
-)
-
-data class BoxScoreTeamHome(
-    val id: Int? = 0,
-    val name: String? = "",
-    @Embedded
-    val teamStats: GameTeamStats? = GameTeamStats(),
-    val goalies: List<GameGoalie>? = emptyList(),
-    val skaters: List<GamePlayer>? = emptyList()
-)
-
-data class BoxScoreTeamAway(
-    val id: Int? = 0,
-    val name: String? = "",
-    @Embedded
-    val teamStats: GameTeamStats? = GameTeamStats(),
-    val goalies: List<GameGoalie>? = emptyList(),
-    val skaters: List<GamePlayer>? = emptyList()
-)
-
-@Entity
 data class GameGoalie(
     val id: Int? = 0,
     val fullName: String? = "",
@@ -95,7 +55,6 @@ data class GameGoalie(
     override fun getViewType() = SkaterConstants.GOALIE
 }
 
-@Entity
 data class GamePlayer(
     val id: Int? = 0,
     val fullName: String? = "",
@@ -105,24 +64,10 @@ data class GamePlayer(
 ): ViewType{
     override fun getViewType() = SkaterConstants.PLAYER
 }
-
-data class GameTeamStats(
-    @Embedded
-    val teamSkaterStats: GameTeamSkaterStats? = GameTeamSkaterStats()
-)
-
-data class GameTeamSkaterStats(
-    val goals: Int = 0,
-    val pim: Int = 0,
-    val shots: Int = 0,
-    val powerPlayPercentage: String? = "",
-    val powerPlayGoals: Int = 0,
-    val powerPlayOpportunities: Int = 0,
-    val faceOffWinPercentage: String? = "",
-    val blocked: Int = 0,
-    val takeaways: Int = 0,
-    val giveaways: Int = 0,
-    val hits: Int = 0
+data class Stats(
+    val home: String,
+    val away: String,
+    val statName: String
 )
 
 class GameSkaterStats(

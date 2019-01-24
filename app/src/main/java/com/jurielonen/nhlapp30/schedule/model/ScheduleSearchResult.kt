@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.paging.PagedList
 
 data class ScheduleSearchResult(
-    val data: LiveData<PagedList<Games>>,
-    val networkErrors: LiveData<String>
+    val data: LiveData<List<Games>>,
+    val networkErrors: LiveData<String>,
+    val isInProgress: LiveData<Boolean>
 )

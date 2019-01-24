@@ -12,15 +12,13 @@ import com.jurielonen.nhlapp30.schedule.model.Games
 
 
 @Database(
-    entities = [Games::class, GameData::class],
+    entities = [Games::class],
     version = 1,
     exportSchema = false
 )
 abstract class ScheduleDb: RoomDatabase() {
 
     abstract fun scheduleDao(): ScheduleDao
-
-    abstract fun gameDao(): GameDao
 
     companion object {
         @Volatile
@@ -35,7 +33,7 @@ abstract class ScheduleDb: RoomDatabase() {
         private fun buildDatabase(context: Context?) =
             Room.databaseBuilder(
                 context!!.applicationContext,
-                ScheduleDb::class.java, "Github.db")
+                ScheduleDb::class.java, "NHL.db")
                 .build()
     }
 }

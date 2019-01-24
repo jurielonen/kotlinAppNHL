@@ -5,11 +5,12 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.jurielonen.nhlapp30.R
 import com.jurielonen.nhlapp30.schedule.model.Games
 
-class GameAdapter: PagedListAdapter<Games, RecyclerView.ViewHolder>(GameDiffCallback()) {
+class GameAdapter: ListAdapter<Games, RecyclerView.ViewHolder>(GameDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return GameViewHolder(
